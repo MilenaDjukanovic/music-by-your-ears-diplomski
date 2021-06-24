@@ -1,0 +1,15 @@
+<mat-card class="container">
+  <mat-card-title class="title">Change your background</mat-card-title>
+  <p class="description">If you want to, you can change the background of your site to make it more personal.
+    To change the background all you have to do is click on the wanted scenary!</p>
+  <mat-card-content class="buttons-wrap">
+    <div *ngFor="let image of this.backgroundImages; index as i" class="button-container">
+      <button class="button-configuration" mat-fab (click)="this.onChangeBackground(i, image.imageUrl)"
+              [ngStyle]="{'background-color': isActive(i) ? 'green' : ''}">
+        <mat-icon class="icon-configuration">{{this.image.icon}}</mat-icon>
+      </button>
+      <span>{{this.image.title}}</span>
+    </div>
+  </mat-card-content>
+</mat-card>
+

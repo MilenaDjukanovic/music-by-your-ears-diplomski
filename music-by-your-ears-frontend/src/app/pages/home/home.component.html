@@ -1,0 +1,46 @@
+<div class="container">
+  <mat-card class="content">
+    <mat-card-title class="text">
+      Music by your ears
+    </mat-card-title>
+    <div>
+      <div style="display: flex; align-items: center; justify-content: center">
+      <video controls>
+        <source src="/assets/videos/musicByYourEars.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card class="content">
+    <mat-card-title class="text">
+      Interesting facts
+    </mat-card-title>
+    <div class="flip-cards">
+      <div *ngFor="let flipCard of this.flipCardConfiguration">
+        <app-flip-card [description]="flipCard.description"
+                       [imageUrl]="flipCard.image">
+
+        </app-flip-card>
+      </div>
+    </div>
+    <div class="actions">
+      <button color="accent" mat-flat-button> Create sound</button>
+      <button color="accent" mat-flat-button> Playlists</button>
+    </div>
+  </mat-card>
+
+  <mat-card class="info">
+    <mat-card-title>
+      Comments
+    </mat-card-title>
+    <mat-card-subtitle>
+      We love to hear from you and listen to your experience. Sends us your comment at
+      musicByYourEars@yahoo.com!By then read some of the comments others have posted!
+    </mat-card-subtitle>
+  </mat-card>
+  <div class="comments">
+    <div *ngFor="let comment of comments">
+      <app-comment-card [comment]="comment"></app-comment-card>
+    </div>
+  </div>
+</div>

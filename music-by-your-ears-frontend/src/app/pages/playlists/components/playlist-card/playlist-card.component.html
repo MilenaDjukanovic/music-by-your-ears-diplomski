@@ -1,0 +1,27 @@
+<mat-card class="container">
+  <img mat-card-image src="{{this.image}}" alt="">
+  <mat-card-content class="content">
+    <div>
+      <mat-card-title>{{this.title}}</mat-card-title>
+      <mat-card-subtitle>{{this.artist}}</mat-card-subtitle>
+    </div>
+    <mat-card-actions class="controls">
+      <button mat-icon-button>
+        <mat-icon (click)="this.playAudio()"
+                  *ngIf="this.audio.paused">play_arrow
+        </mat-icon>
+        <mat-icon (click)="this.pauseAudio()"
+                  *ngIf="!this.audio.paused">pause
+        </mat-icon>
+      </button>
+      <mat-slider class="slider" [value]="this.currentTimePlayed" color="primary"
+                  thumbLabel
+                  [max]="this.audio.duration"
+                  [step]="0.1"
+                  [displayWith]="this.formatLabel"
+                  (input)="this.onInputChanged($event)"
+      ></mat-slider>
+      <button mat-stroked-button (click)="openDialog()">See details</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>

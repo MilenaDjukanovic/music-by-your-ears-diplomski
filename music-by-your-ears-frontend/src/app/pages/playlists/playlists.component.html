@@ -1,0 +1,17 @@
+<div class="wrap" #test>
+  <mat-card class="description">
+    <mat-card-title>
+      Playlists
+    </mat-card-title>
+    <mat-card-subtitle>
+      If you're not sure how to create your own ambient, we've generated some playlists for you!
+    </mat-card-subtitle>
+  </mat-card>
+  <div class="container">
+    <app-playlist-card *ngFor="let playlist of this.playlistConfiguration"
+                       [title]="playlist.title" [artist]="playlist.artist"
+                       [image]="playlist.image" [sound]="playlist.sound"
+                       [icons]="playlist.icons"
+    ></app-playlist-card>
+  </div>
+</div>

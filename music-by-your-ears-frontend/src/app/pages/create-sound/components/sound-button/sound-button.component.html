@@ -1,0 +1,6 @@
+<div class="container">
+  <button mat-fab (click)="this.playAudio()" [ngStyle]="{'background-color': this.active ? 'green' : ''}" >
+    <mat-icon class="icon" svgIcon="{{this.icon}}"></mat-icon>
+  </button>
+  <span>{{this.title}}</span>
+</div>

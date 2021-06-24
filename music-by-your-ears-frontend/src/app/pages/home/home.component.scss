@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+video {
+  width: 90%;
+  height: 100%;
+  padding: 20px;
+}
+
+.text {
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 3em;
+  background-color: rgba(17, 16, 16, 0.5);
+}
+
+.flip-cards{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button{
+  transform: translateY(0px);
+  transition: 0.3s linear;
+  margin: 20px;
+  width: 10em;
+}
+
+button:hover{
+  transform: translateY(-4px);
+  background-color: deeppink;
+  color: white;
+}
+
+.comments {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.info {
+  width: 80%;
+  background-color: rgba(17, 16, 16, 0.5);
+  margin: 20px;
+}
+@media screen and (max-width: 600px) {
+  .description{
+    width: 80%;
+  }
+}

@@ -1,0 +1,17 @@
+<div class="container">
+  <app-background-control class="background-controls"></app-background-control>
+  <mat-card class="button-container">
+    <mat-card-title>Create sound</mat-card-title>
+    <mat-card-subtitle class="subtitle">Here you can create your own unique sound by just a few clicks!
+      All you have to do is click on the button of the sound you want to
+      use. You can play multiple buttons at a time.
+    </mat-card-subtitle>
+    <mat-card-content class="content">
+      <ng-container *ngFor="let sound of this.soundConfiguration">
+        <app-sound-button *ngIf="this.sound.enabled"
+                          [title]=sound.title [icon]=sound.icon
+                          [soundUrl]="sound.url"></app-sound-button>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
