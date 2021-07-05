@@ -17,8 +17,23 @@
               {{controlConfiguration['error']}}
             </mat-error>
           </mat-form-field>
+            <p *ngIf="this.showUploadImage">
+              <mat-file-upload
+                [labelText]="'Select profile image:'"
+                [selectButtonText]="'Choose File'"
+                [uploadButtonText]="'Upload'"
+                [allowMultipleFiles]="false"
+                [showUploadButton]="false"
+                [acceptedTypes]="'.jpg, .jpeg'"
+                (selectedFilesChanged)="this.onIconImageUpload($event)"
+              ></mat-file-upload>
+              <mat-error *ngIf="this.error"></mat-error>
+            </p>
           <mat-error *ngIf="this.error">
             {{this.error}}
+          </mat-error>
+          <mat-error *ngIf="this.imageError">
+            {{this.imageError}}
           </mat-error>
           <div class="actions">
             <button [disabled]="this.registrationForm.invalid" class="login-button" color="primary" mat-flat-button type="submit">{{this.buttonLabel}}</button>

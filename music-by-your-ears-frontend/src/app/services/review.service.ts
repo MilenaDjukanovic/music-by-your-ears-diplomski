@@ -14,7 +14,6 @@ export class ReviewService {
 
   public getReviewsForPlaylist(playlistId: number): Observable<any> {
     const url = this.BASE_URL + '/' + playlistId;
-    debugger
     return this.httpClient.get(url);
   }
 

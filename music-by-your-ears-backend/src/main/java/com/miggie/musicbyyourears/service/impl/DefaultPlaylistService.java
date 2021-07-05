@@ -61,7 +61,7 @@ public class DefaultPlaylistService implements PlaylistService {
         IconsDto iconsDto = this.iconViewMapper.toDto(iconsEntity);
         createPlaylistRequest.setCoverImage(iconsDto);
         //TODO
-        createPlaylistRequest.setUserId(1L);
+        createPlaylistRequest.setUserId(this.authorizationService.getAuthenticatedUser().getId());
         createPlaylistRequest.setAudio(FileCompressorUtil.compressBytes(createPlaylistRequest.getAudio()));
 
         PlaylistEntity playlistEntity = this.playlistCreateMapper.toEntity(createPlaylistRequest);

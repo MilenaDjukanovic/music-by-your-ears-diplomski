@@ -24,9 +24,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   private getPlaylistsForUser(): void {
-    debugger
     this.playlistService.getPlaylistsForLoggedInUser(this.authService.getCurrentUserValue().id).subscribe((data) => {
-        debugger
         this.playlists = data.content;
       });
   }

@@ -6,6 +6,7 @@ import com.miggie.musicbyyourears.repo.UserRepository;
 import com.miggie.musicbyyourears.repo.entity.*;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateSoundRequest;
+import com.miggie.musicbyyourears.service.AuthorizationService;
 import com.miggie.musicbyyourears.service.SoundService;
 import com.miggie.musicbyyourears.service.mappers.IconCreateMapper;
 import com.miggie.musicbyyourears.service.mappers.IconViewMapper;
@@ -48,6 +49,9 @@ public class DefaultSoundService implements SoundService {
     /** Sound Create Mapper **/
     private final SoundCreateMapper soundCreateMapper;
 
+    /** Authorization Service **/
+    private final AuthorizationService authorizationService;
+
     @Override
     public SoundDto create(CreateSoundRequest createSoundRequest, CreateIconRequest createIconRequest) {
         Objects.requireNonNull(createIconRequest);
@@ -59,7 +63,7 @@ public class DefaultSoundService implements SoundService {
         IconsDto iconsDto = this.iconViewMapper.toDto(iconsEntity);
         createSoundRequest.setIcon(iconsDto);
         //TODO
-        createSoundRequest.setUserId(1L);
+        createSoundRequest.setUserId(this.authorizationService.getAuthenticatedUser().getId());
 
         SoundEntity soundEntity = this.soundCreateMapper.toEntity(createSoundRequest);
 

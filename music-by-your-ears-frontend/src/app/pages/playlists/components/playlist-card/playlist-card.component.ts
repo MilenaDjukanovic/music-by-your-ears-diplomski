@@ -62,7 +62,6 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   }
 
   public onOpenDialog(): void {
-    debugger
     this.reviews = this.getReviews();
     this.openDialog();
   }

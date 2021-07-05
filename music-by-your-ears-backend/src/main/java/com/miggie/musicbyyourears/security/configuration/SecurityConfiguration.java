@@ -52,7 +52,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())))
                 .and();
 
-        http.authorizeRequests().antMatchers("/").permitAll();
+        // http.authorizeRequests().antMatchers("/").permitAll();
+        http.authorizeRequests().antMatchers("/api/auth/**")
+                .permitAll().antMatchers("/api/icons/**")
+                .permitAll().anyRequest().authenticated();
 
         http.addFilterBefore(
                 jwtTokenFilter,

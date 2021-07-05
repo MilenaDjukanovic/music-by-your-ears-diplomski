@@ -14,8 +14,12 @@ export class BaseRegisterComponent implements OnInit {
   @Input() public headerMessage!: string;
   @Input() public buttonLabel!: string;
   @Input() public header!: string;
+  @Input() public showUploadImage!: boolean;
 
   @Output() public formSubmitted: EventEmitter<any> = new EventEmitter<any>();
+
+  public coverImage!: any;
+  public imageError!: string;
 
   public registrationForm!: FormGroup;
 
@@ -53,8 +57,17 @@ export class BaseRegisterComponent implements OnInit {
       return;
     }
 
+    if (this.showUploadImage && !this.coverImage) {
+      this.imageError = 'You must insert image';
+      return;
+    }
+
     const formValues = this.getFormValues();
-    this.formSubmitted.emit({values: formValues});
+    if (this.showUploadImage) {
+      this.formSubmitted.emit({values: formValues, coverImage: this.coverImage});
+    } else {
+      this.formSubmitted.emit({values: formValues, coverImage: this.coverImage});
+    }
   }
 
   public redirect(): void{
@@ -74,5 +87,9 @@ export class BaseRegisterComponent implements OnInit {
     }
 
     return formValues;
+  }
+
+  public onIconImageUpload($event: FileList): void {
+    this.coverImage = $event.item(0);
   }
 }

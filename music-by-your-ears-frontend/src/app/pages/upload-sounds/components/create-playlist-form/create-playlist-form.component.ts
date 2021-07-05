@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {PlaylistService} from '../../../../services/playlist.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class CreatePlaylistFormComponent implements OnInit {
     });
   }
 
-  public onSubmit(): void {
+  public onSubmit(formDirective: FormGroupDirective): void {
     if (!this.createPlaylistForm.valid || !this.audio || !this.coverImage) {
       this.error = 'Form not valid, please try again!';
       return;
@@ -43,7 +43,7 @@ export class CreatePlaylistFormComponent implements OnInit {
 
     this.playlistService.createPlaylist(playlistData).subscribe((data) => {
           this.createPlaylistForm.reset('');
-          this.createPlaylistForm.clearValidators();
+          formDirective.reset();
     });
   }
 

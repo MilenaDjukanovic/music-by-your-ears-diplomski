@@ -22,7 +22,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { CommentsDialogComponent } from './pages/playlists/components/comments-dialog/comments-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CommentCardComponent} from './pages/home/components/comment-card/comment-card.component';
 import {FlipCardComponent} from './pages/home/components/flip-card/flip-card.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
@@ -39,6 +39,8 @@ import {RegisterComponent} from './pages/register/register.component';
 import { UploadSoundsComponent } from './pages/upload-sounds/upload-sounds.component';
 import {CreateSoundFormComponent} from './pages/upload-sounds/components/create-sound-form/create-sound-form.component';
 import {CreatePlaylistFormComponent} from './pages/upload-sounds/components/create-playlist-form/create-playlist-form.component';
+import {JwtInterceptor} from './interceptors/jwt.interceptor';
+import {ErrorInterceptor} from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import {CreatePlaylistFormComponent} from './pages/upload-sounds/components/crea
     MatInputModule,
     MatRadioModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

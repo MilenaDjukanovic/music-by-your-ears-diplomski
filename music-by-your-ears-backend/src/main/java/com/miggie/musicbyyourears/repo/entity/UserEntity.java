@@ -39,16 +39,16 @@ public class UserEntity implements UserDetails {
     @Getter @Setter
     private String lastName;
 
-    /** User image **/
-    @Lob
-    @Column(nullable = false, columnDefinition = "BLOB")
-    @Getter @Setter
-    private byte[] image;
-
     /** Description **/
     @Column()
     @Getter @Setter
     private String about;
+
+    /** Profile image **/
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "image_id")
+    @Getter @Setter
+    private IconsEntity profileImage;
 
     /** Flag if the user is enabled **/
     @Setter

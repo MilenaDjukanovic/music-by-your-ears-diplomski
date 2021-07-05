@@ -14,8 +14,8 @@ public class UserDto {
     private String firstName;
     /** Last Name **/
     private String lastName;
-    /** User image **/
-    private byte[] image;
+    /** Profile image **/
+    private IconsDto profileImage;
     /** Description **/
     private String about;
 }

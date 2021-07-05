@@ -2,6 +2,7 @@ package com.miggie.musicbyyourears.service;
 
 import com.miggie.musicbyyourears.repo.entity.UserDto;
 import com.miggie.musicbyyourears.repo.entity.UserEntity;
+import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateUserRequest;
 
 /**
@@ -18,6 +19,8 @@ public interface UserService {
      */
     UserDto createUser(CreateUserRequest createUserRequest);
 
+    UserDto updateUser(CreateUserRequest createUserRequest, CreateIconRequest createIconRequest);
+
     /**
      * Updates the passed userEntity
      * @param userEntity userEntity
@@ -30,6 +33,6 @@ public interface UserService {
      * @param id id of the user to find
      * @return UserEntity
      */
-    UserEntity findById(Long id);
+    UserDto findById(Long id);
 
 }

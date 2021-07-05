@@ -11,6 +11,7 @@ export interface ICreateUser extends  IBaseUser {
   rePassword: string;
   firstName: string;
   lastName: string;
+  about: string;
 }
 
 export interface IUser extends IBaseUser {
@@ -38,6 +39,7 @@ export class CreateUser implements ICreateUser {
     public password: string,
     public rePassword: string,
     public firstName: string,
-    public lastName: string
+    public lastName: string,
+    public about: string
   ){}
 }
