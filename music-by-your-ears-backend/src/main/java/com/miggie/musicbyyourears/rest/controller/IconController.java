@@ -9,8 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 /**
  * Public API Endpoint for Playlists
@@ -30,8 +32,19 @@ public class IconController {
         return this.iconService.findAll(pageable);
     }
 
-    @PostMapping()
-    public IconsDto create(@RequestBody @Valid CreateIconRequest createIconRequest) {
+    @GetMapping()
+    public Page<IconsDto> findByExtension(@RequestParam String extension) {
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
+        return this.iconService.findByExtension(extension, pageable);
+    }
+
+    @PostMapping("/upload")
+    public IconsDto create(@RequestParam("imageFile") MultipartFile file,
+                           @RequestParam("testFile") MultipartFile test) throws IOException {
+        CreateIconRequest createIconRequest = new CreateIconRequest();
+        createIconRequest.setName(file.getOriginalFilename());
+        createIconRequest.setImageFile(file.getContentType());
+        createIconRequest.setImage(file.getBytes());
         return this.iconService.create(createIconRequest);
     }
 

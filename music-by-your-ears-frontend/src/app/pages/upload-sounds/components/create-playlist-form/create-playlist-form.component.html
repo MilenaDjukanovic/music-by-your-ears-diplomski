@@ -1,0 +1,51 @@
+<div class="card-wrapper">
+  <mat-card class="card-content">
+    <mat-card-title>Create playlist</mat-card-title>
+    <form [formGroup]="this.createPlaylistForm" (ngSubmit)="this.onSubmit()" class="card-content">
+      <p class="form-item">
+        <mat-form-field>
+          <input type="text" matInput placeholder="Playlist name" formControlName="name">
+          <mat-error>{{this.playlistError}}</mat-error>
+        </mat-form-field>
+      </p>
+      <p class="form-item">
+        <mat-form-field>
+          <input type="text" matInput placeholder="Artist name" formControlName="artist">
+          <mat-error>{{this.artistError}}</mat-error>
+        </mat-form-field>
+      </p>
+      <p class="form-item">
+        <mat-file-upload
+          [labelText]="'Select sound for playlist:'"
+          [selectButtonText]="'Choose File'"
+          [uploadButtonText]="'Upload'"
+          [allowMultipleFiles]="false"
+          [showUploadButton]="false"
+          [acceptedTypes]="'.mp3, .wav'"
+          (selectedFilesChanged)="this.onAudioUpload($event)"
+        ></mat-file-upload>
+        <mat-error *ngIf="this.error"></mat-error>
+      </p>
+      <p class="form-item">
+        <mat-file-upload
+          [labelText]="'Select cover image for the playlist(.jpg, .jpeg):'"
+          [selectButtonText]="'Choose File'"
+          [uploadButtonText]="'Upload'"
+          [allowMultipleFiles]="false"
+          [showUploadButton]="false"
+          [acceptedTypes]="'.jpg, .jpeg'"
+          (selectedFilesChanged)="this.onIconImageUpload($event)"
+        ></mat-file-upload>
+        <mat-error *ngIf="this.error"></mat-error>
+      </p>
+
+      <mat-error *ngIf="this.error">
+        {{this.error}}
+      </mat-error>
+      <div class="button">
+        <button [disabled]="this.createPlaylistForm.invalid || !this.audio || !this.coverImage"
+                class="float-right" type="submit" mat-flat-button color="primary">Save</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

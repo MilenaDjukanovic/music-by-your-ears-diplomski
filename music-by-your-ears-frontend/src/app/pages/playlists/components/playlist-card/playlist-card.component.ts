@@ -1,11 +1,15 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {MatSliderChange, MatSliderModule} from '@angular/material/slider';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {MatSliderChange} from '@angular/material/slider';
 import {MatDialog} from '@angular/material/dialog';
-import {ButtonDialogComponent} from '../button-dialog/button-dialog.component';
+import {CommentsDialogComponent} from '../comments-dialog/comments-dialog.component';
 import {PlaylistService} from '../../../../services/playlist.service';
+import {IPlaylist} from '../../../../model/playlist.model';
+import {IReview} from '../../../../model/reviews.model';
+import {ReviewService} from '../../../../services/review.service';
 
 export interface DialogData {
-  icons: any;
+  playlist: IPlaylist;
+  reviews: Array<IReview>;
 }
 
 @Component({
@@ -15,17 +19,20 @@ export interface DialogData {
 })
 export class PlaylistCardComponent implements OnInit, OnDestroy {
 
-  @Input() title!: string;
-  @Input() artist!: string;
-  @Input() image!: string;
-  @Input() sound!: string;
-  @Input() icons!: any;
+  @Input() playlist!: IPlaylist;
+  @Input() showDelete!: boolean;
+  @Input() showDownloadButton!: boolean;
+  @Output() playlistDeleted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() playlistDownloaded: EventEmitter<any> = new EventEmitter<any>();
 
-  public audio = new Audio();
+  public audio: any = new Audio();
 
   public currentTimePlayed = 0;
 
-  constructor(public dialog: MatDialog, private playlistService: PlaylistService) {
+  public reviews!: Array<IReview>;
+
+  constructor(public dialog: MatDialog, private playlistService: PlaylistService,
+              private reviewsService: ReviewService) {
     this.playlistService.pauseVideo.subscribe(() => {
       this.audio.pause();
     });
@@ -33,15 +40,6 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initializeAudio();
-  }
-
-  private initializeAudio(): void {
-    this.audio.src = this.sound;
-    this.audio.load();
-
-    this.audio.addEventListener('timeupdate', () => {
-      this.currentTimePlayed = this.audio.currentTime;
-    });
   }
 
   public playAudio(): void {
@@ -63,11 +61,21 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onOpenDialog(): void {
+    debugger
+    this.reviews = this.getReviews();
+    this.openDialog();
+  }
+
   public openDialog(): void {
-    this.dialog.open(ButtonDialogComponent, {
-      maxHeight: '400px',
-      width: '400px',
-      data: {icons: this.icons}
+    this.reviewsService.getReviewsForPlaylist(this.playlist.id).subscribe((data) => {
+      this.dialog.open(CommentsDialogComponent, {
+        maxHeight: '400px',
+        width: '400px',
+        data: {playlist: this.playlist, reviews: data.content}
+      });
+    }, error => {
+      return new Array<IReview>();
     });
 
   }
@@ -75,5 +83,53 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.audio.pause();
     this.audio.removeAttribute('src');
+  }
+
+  public deletePlaylist(): void {
+    this.playlistService.deletePlaylist(this.playlist.id);
+    this.playlistDeleted.emit();
+  }
+
+  public downloadPlaylist(): void {
+    this.playlistDownloaded.emit(this.playlist);
+  }
+
+  private getReviews(): any {
+    this.reviewsService.getReviewsForPlaylist(this.playlist.id).subscribe((data) => {
+      return data.content;
+    }, error => {
+      return new Array<IReview>();
+    });
+  }
+
+  private initializeAudio(): void {
+    this.loadImages();
+    this.loadSounds();
+    // this.audio = this.playlist.audio;
+    this.audio.load();
+
+    this.audio.addEventListener('timeupdate', () => {
+      this.currentTimePlayed = this.audio.currentTime;
+    });
+  }
+
+  private loadImages(): void {
+    if (this.playlist.coverImage.name.split('.')[1] === 'jpg') {
+      this.playlist.coverImage.image = 'data:image/jpg;base64,' + this.playlist.coverImage.image;
+    }
+
+    if (this.playlist.coverImage.name.split('.')[1] === 'jpeg') {
+      this.playlist.coverImage.image = 'data:image/jpeg;base64,' + this.playlist.coverImage.image;
+    }
+  }
+
+  private loadSounds(): void {
+    if (this.playlist.name.split('.')[1] === 'mp3') {
+      this.audio = new Audio('data:audio/mp3;base64,' + this.playlist.audio);
+    }
+
+    if (this.playlist.name.split('.')[1] === 'wav') {
+      this.audio = new Audio('data:audio/wav;base64,' + this.playlist.audio);
+    }
   }
 }

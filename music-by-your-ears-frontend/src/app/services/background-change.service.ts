@@ -8,7 +8,7 @@ import {backgroundImages} from '../configuration/backgroundImages';
 export class BackgroundChangeService {
 
   private subject = new Subject<any>();
-  private lastSelectedBackground!: string;
+  private lastSelectedBackground: string | undefined;
   private lastSelectedIndex!: number;
 
   private backgroundImages = backgroundImages;
@@ -30,7 +30,10 @@ export class BackgroundChangeService {
   }
 
   public getLastSelectedBackground(): string {
-    return this.lastSelectedBackground;
+    if (this.lastSelectedBackground) {
+      return this.lastSelectedBackground;
+    }
+    return '';
   }
 
   public getLastIndex(): number {
@@ -39,5 +42,9 @@ export class BackgroundChangeService {
 
   public getBackgroundImages(): any{
     return this.backgroundImages;
+  }
+
+  public resetBackground(): void {
+    this.lastSelectedBackground = undefined;
   }
 }

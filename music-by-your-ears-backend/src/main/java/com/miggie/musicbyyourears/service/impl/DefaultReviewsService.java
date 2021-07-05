@@ -7,7 +7,6 @@ import com.miggie.musicbyyourears.repo.entity.PlaylistEntity;
 import com.miggie.musicbyyourears.repo.entity.ReviewsDto;
 import com.miggie.musicbyyourears.repo.entity.ReviewsEntity;
 import com.miggie.musicbyyourears.requests.CreateReviewRequest;
-import com.miggie.musicbyyourears.service.PlaylistService;
 import com.miggie.musicbyyourears.service.ReviewService;
 import com.miggie.musicbyyourears.service.mappers.ReviewViewMapper;
 import com.miggie.musicbyyourears.service.mappers.ReviewsCreateMapper;

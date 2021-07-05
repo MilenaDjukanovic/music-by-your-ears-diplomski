@@ -11,27 +11,31 @@ import java.util.Set;
 @Data
 public abstract class BasePlaylistRequest {
 
+    /** Name to show **/
+    @NotBlank
+    private String nameToShow;
+
     /** Artist **/
     @NotBlank
     private String artist;
 
+    /** Playlist name **/
+    @NotBlank
+    private String name;
+
     /** Playlist cover **/
     @NotNull
-    private byte[] coverImage;
-
-    /** Playlist cover file **/
-    @NotBlank
-    private String coverFile;
+    private IconsDto coverImage;
 
     /** Playlist audio **/
     @NotNull
     private byte[] audio;
 
-    /** Icons ID of used sounds **/
-    private Set<IconsDto> icons;
+    /** Playlist audio file **/
+    @NotBlank
+    private String audioFile;
 
     /** Added by user **/
-    @NotNull
     private Long userId;
 
 

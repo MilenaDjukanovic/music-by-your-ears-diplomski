@@ -1,4 +1,4 @@
-<div class="wrap" #test>
+<div class="wrap">
   <mat-card class="description">
     <mat-card-title>
       Playlists
@@ -9,9 +9,9 @@
   </mat-card>
   <div class="container">
     <app-playlist-card *ngFor="let playlist of this.playlistConfiguration"
-                       [title]="playlist.title" [artist]="playlist.artist"
-                       [image]="playlist.image" [sound]="playlist.sound"
-                       [icons]="playlist.icons"
+                       [playlist]="playlist"
+                       [showDownloadButton]="true"
+                       (playlistDownloaded)="this.onPlaylistDownload($event);"
     ></app-playlist-card>
   </div>
 </div>

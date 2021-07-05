@@ -1,0 +1,25 @@
+<div class="wrap">
+  <h1 mat-dialog-title>Comments</h1>
+  <div class="container" mat-dialog-content>
+    <form (ngSubmit)="this.createComment()" [formGroup]="this.commentForm" class="user-comment">
+      <mat-form-field>
+        <input formControlName="comment" matInput placeholder="Write your comment here..." type="text">
+      </mat-form-field>
+      <mat-error *ngIf="this.error">{{this.error}}</mat-error>
+      <button [disabled]="this.commentForm.invalid"
+              class="submit-button"
+              color="primary" mat-flat-button
+              type="submit">Save
+      </button>
+    </form>
+    <div *ngIf="this.reviews" class="comments">
+      <div *ngFor="let review of this.reviews" class="comment-wrap">
+        <button class="comment-icon" mat-mini-fab>{{this.review.user.username.substring(0, 1)}}</button>
+        <p class="comment">{{this.review.comment}}</p>
+      </div>
+    </div>
+  </div>
+  <div align="end" mat-dialog-actions>
+    <button (click)="this.onNoClick()" mat-button class="close-button">Close</button>
+  </div>
+</div>

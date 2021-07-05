@@ -16,25 +16,27 @@
   flex: 1;
 }
 
-.sidenav{
-  display: none;
-}
-
-.nav-item{
-  margin: 10px 10px 10px 10px;
-  background-color: transparent;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 0.8em;
-}
+//.sidenav{
+//  display: none;
+//}
+//
+//.nav-item{
+//  margin: 10px 10px 10px 10px;
+//  background-color: transparent;
+//  padding-top: 5px;
+//  padding-bottom: 5px;
+//  font-size: 0.7em;
+//}
 
 .title{
   text-decoration: none;
   color: white;
+  padding: 10px;
+  font-size: 17px;
 }
 
 .title:hover{
-  font-size: 1.03em;
+  font-size: 19px;
   transition: 0.5s;
 }
 
@@ -53,6 +55,8 @@
     flex-direction: row;
     align-items: center;
     padding-top: 5px;
+    max-width: 30% !important;
+    font-size: 10px;
   }
   .nav-items{
     display: none;

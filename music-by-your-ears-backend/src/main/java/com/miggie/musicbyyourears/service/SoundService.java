@@ -1,6 +1,7 @@
 package com.miggie.musicbyyourears.service;
 
 import com.miggie.musicbyyourears.repo.entity.SoundDto;
+import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateSoundRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public interface SoundService {
      * @param createSoundRequest request for sound creation containing sound details
      * @return Sound object for viewing if successful
      */
-    SoundDto create(CreateSoundRequest createSoundRequest);
+    SoundDto create(CreateSoundRequest createSoundRequest, CreateIconRequest createIconRequest);
 
     /**
      * Finds all sounds

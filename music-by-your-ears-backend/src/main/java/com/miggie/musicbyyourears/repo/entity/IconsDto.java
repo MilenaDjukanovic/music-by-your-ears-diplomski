@@ -8,6 +8,9 @@ public class IconsDto {
     /** Icon ID **/
     private Long id;
 
+    /** Icon extension **/
+    private String extension;
+
     /** Icon name **/
     private String name;
 

@@ -1,0 +1,59 @@
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {DialogData} from '../playlist-card/playlist-card.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CreateReview, IReview} from '../../../../model/reviews.model';
+import {AuthService} from '../../../../services/auth.service';
+import {ReviewService} from '../../../../services/review.service';
+
+@Component({
+  selector: 'app-button-dialog',
+  templateUrl: './comments-dialog.component.html',
+  styleUrls: ['./comments-dialog.component.scss']
+})
+export class CommentsDialogComponent implements OnInit {
+
+  public commentForm!: FormGroup;
+  public error!: string;
+  public reviews!: any[];
+
+  constructor(public dialogRef: MatDialogRef<CommentsDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData, private formBuilder: FormBuilder,
+              private authService: AuthService, private reviewService: ReviewService){
+
+    this.reviews = this.data.reviews;
+  }
+
+  ngOnInit(): void {
+    // this.getReviews();
+    this.commentForm = this.formBuilder.group({
+      comment: ['', Validators.required]
+    });
+  }
+
+  public onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  public createComment(): void {
+    if (this.commentForm.invalid) {
+      this.error = 'Can not create comment';
+      return;
+    }
+
+    const createReview: CreateReview = new CreateReview(this.commentForm.controls.comment.value,
+      this.data.playlist.id, this.authService.getCurrentUserValue().id);
+
+    this.reviewService.createReview(createReview).subscribe((data) => {
+      this.getReviews();
+      this.commentForm.controls.comment.reset('');
+    }, error => {
+    });
+  }
+
+  private getReviews(): void {
+    this.reviewService.getReviewsForPlaylist(this.data.playlist.id).subscribe((data) => {
+      this.reviews = data.content;
+    });
+  }
+}

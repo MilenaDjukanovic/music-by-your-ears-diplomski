@@ -1,26 +1,29 @@
-export enum Icons {
-  Airport = 'airport',
-  Applause = 'applause',
-  Birdsong = 'birdsong',
-  Car = 'car',
-  Clock = 'clock',
-  Cityscape = 'cityscape',
-  Electricity = 'electricity',
-  Forest = 'forest',
-  GentleRain = 'gentle_rain',
-  Guitar = 'guitar',
-  Keyboard = 'keyboard',
-  LofiHipHop = 'lofi_hip_hop',
-  Piano = 'piano',
-  RainOnMetal = 'rooftop_rain',
-  RainOnWindow = 'rain_on_window',
-  Sea = 'sea',
-  Thunder = 'thunder',
-  Thunderstorm = 'thunderstorm',
-  Violin = 'violin',
-  Volcano = 'volcano',
-  Whisper = 'whisper',
-  Whistle = 'whistle',
-  Wind = 'wind',
-  Wolf = 'wolf'
+export interface IBaseIcons{
+  name: string;
+  image: any;
+  imageFile: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface ICreateIcon extends IBaseIcons {
+}
+
+export interface IIcon extends IBaseIcons {
+  id: number;
+}
+
+export class CreateIcon implements ICreateIcon {
+  constructor(public name: string,
+              public image: any,
+              public imageFile: string) {
+  }
+}
+
+export class Icon implements IIcon {
+  constructor(public id: number,
+              public name: string,
+              public image: any,
+              public imageFile: string) {
+
+  }
 }

@@ -8,9 +8,8 @@
     </mat-card-subtitle>
     <mat-card-content class="content">
       <ng-container *ngFor="let sound of this.soundConfiguration">
-        <app-sound-button *ngIf="this.sound.enabled"
-                          [title]=sound.title [icon]=sound.icon
-                          [soundUrl]="sound.url"></app-sound-button>
+        <app-sound-button [title]=sound.nameToShow [icon]=sound.icon.name
+                          [soundUrl]="sound.audio"></app-sound-button>
       </ng-container>
     </mat-card-content>
   </mat-card>

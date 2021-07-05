@@ -33,4 +33,11 @@ public interface IconService {
      * @return IconDto if successfully found
      */
     IconsDto findById(Long id);
+
+    /**
+     * Finds all icons for a certain extesion
+     * @param extension extension of the icon
+     * @return pageable of icons
+     */
+    Page<IconsDto> findByExtension(String extension, Pageable pageable);
 }

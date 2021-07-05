@@ -22,6 +22,11 @@ public class IconsEntity {
     @Getter @Setter
     private String name;
 
+    /** Icon extension **/
+    @Column(nullable = false)
+    @Getter @Setter
+    private String extension;
+
     /** Icon image **/
     @Lob
     @Column(nullable = false, columnDefinition = "BLOB")

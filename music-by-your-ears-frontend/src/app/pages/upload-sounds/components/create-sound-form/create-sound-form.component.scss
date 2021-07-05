@@ -1,0 +1,45 @@
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+mat-card {
+  max-width: 600px;
+  background-color: rgba(17, 16, 16, 0.8);
+}
+
+mat-card-title {
+  padding-bottom: 20px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.form-item {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-button-option {
+  padding-left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  mat-card{
+    max-width: 300px;
+  }
+}

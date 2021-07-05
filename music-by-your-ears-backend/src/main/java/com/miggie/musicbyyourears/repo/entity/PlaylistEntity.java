@@ -23,16 +23,21 @@ public class PlaylistEntity {
     @Getter @Setter
     private String artist;
 
-    /** Playlist cover **/
-    @Lob
-    @Column(name = "cover_image", nullable = false, columnDefinition = "BLOB")
+    /** Name to show **/
+    @Column(name = "name_to_show", nullable = false)
     @Getter @Setter
-    private byte[] coverImage;
+    private String nameToShow;
 
-    /** Playlist cover file **/
-    @Column(name = "cover_file", nullable = false)
+    /** Name **/
+    @Column(nullable = false)
     @Getter @Setter
-    private String coverFile;
+    private String name;
+
+    /** Playlist cover **/
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "icon_id", nullable = false)
+    @Getter @Setter
+    private IconsEntity coverImage;
 
     /** Playlist audio **/
     @Lob
@@ -40,11 +45,10 @@ public class PlaylistEntity {
     @Getter @Setter
     private byte[] audio;
 
-    /** Icons of used sounds **/
-    @Column()
-    @ManyToMany(fetch = FetchType.EAGER)
+    /** Playlist cover file **/
+    @Column(name = "audio_file", nullable = false)
     @Getter @Setter
-    private Set<IconsEntity> icons;
+    private String audioFile;
 
     /** Added by user **/
     @ManyToOne

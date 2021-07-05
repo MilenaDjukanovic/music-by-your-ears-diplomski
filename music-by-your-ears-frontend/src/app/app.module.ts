@@ -20,11 +20,25 @@ import {PlaylistCardComponent} from './pages/playlists/components/playlist-card/
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { ButtonDialogComponent } from './pages/playlists/components/button-dialog/button-dialog.component';
+import { CommentsDialogComponent } from './pages/playlists/components/comments-dialog/comments-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {HttpClientModule} from '@angular/common/http';
 import {CommentCardComponent} from './pages/home/components/comment-card/comment-card.component';
 import {FlipCardComponent} from './pages/home/components/flip-card/flip-card.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFileUploadModule} from 'mat-file-upload';
+import {MatInputModule} from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+
+import { BasicLayoutComponent } from './layouts/basic-layout/basic-layout.component';
+import {BaseRegisterComponent} from './components/common/base-register/base-register.component';
+import {LoginComponent} from './pages/login/login.component';
+import {RegisterComponent} from './pages/register/register.component';
+import { UploadSoundsComponent } from './pages/upload-sounds/upload-sounds.component';
+import {CreateSoundFormComponent} from './pages/upload-sounds/components/create-sound-form/create-sound-form.component';
+import {CreatePlaylistFormComponent} from './pages/upload-sounds/components/create-playlist-form/create-playlist-form.component';
 
 @NgModule({
   declarations: [
@@ -36,9 +50,17 @@ import {FlipCardComponent} from './pages/home/components/flip-card/flip-card.com
     PlaylistsComponent,
     BackgroundControlComponent,
     PlaylistCardComponent,
-    ButtonDialogComponent,
+    CommentsDialogComponent,
     CommentCardComponent,
-    FlipCardComponent
+    FlipCardComponent,
+    UserProfileComponent,
+    CreateSoundFormComponent,
+    CreatePlaylistFormComponent,
+    BasicLayoutComponent,
+    BaseRegisterComponent,
+    LoginComponent,
+    RegisterComponent,
+    UploadSoundsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +76,12 @@ import {FlipCardComponent} from './pages/home/components/flip-card/flip-card.com
     MatSliderModule,
     MatTooltipModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatFileUploadModule,
+    MatInputModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

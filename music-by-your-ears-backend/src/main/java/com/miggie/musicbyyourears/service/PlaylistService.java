@@ -1,6 +1,7 @@
 package com.miggie.musicbyyourears.service;
 
 import com.miggie.musicbyyourears.repo.entity.PlaylistDto;
+import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreatePlaylistRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public interface PlaylistService {
      * @param createPlaylistRequest request for playlist creation containing playlist details
      * @return Playlist object for viewing if successful
      */
-    PlaylistDto create(CreatePlaylistRequest createPlaylistRequest);
+    PlaylistDto create(CreatePlaylistRequest createPlaylistRequest, CreateIconRequest createIconRequest);
 
     /**
      * Finds all playlists

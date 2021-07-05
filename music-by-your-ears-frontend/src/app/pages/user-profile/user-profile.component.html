@@ -1,0 +1,18 @@
+<div class="wrap">
+  <div *ngIf="!(this.playlists.length === 0); else noPlaylists" class="playlist-wrap">
+    <mat-card class="container">
+      <mat-card-title>Your playlists</mat-card-title>
+      <div class="playlist-container">
+      <app-playlist-card *ngFor="let playlist of this.playlists"
+                         [playlist]="playlist" [showDelete]="true"
+                         (playlistDeleted)="this.refreshView();"
+      ></app-playlist-card>
+      </div>
+    </mat-card>
+  </div>
+  <ng-template #noPlaylists>
+    <mat-card>
+      <mat-card-title>You haven't created any playlists yet!</mat-card-title>
+    </mat-card>
+  </ng-template>
+</div>

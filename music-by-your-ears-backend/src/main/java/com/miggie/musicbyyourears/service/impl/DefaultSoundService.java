@@ -3,14 +3,12 @@ package com.miggie.musicbyyourears.service.impl;
 import com.miggie.musicbyyourears.repo.IconRepository;
 import com.miggie.musicbyyourears.repo.SoundRepository;
 import com.miggie.musicbyyourears.repo.UserRepository;
-import com.miggie.musicbyyourears.repo.entity.IconsEntity;
-import com.miggie.musicbyyourears.repo.entity.SoundDto;
-import com.miggie.musicbyyourears.repo.entity.SoundEntity;
-import com.miggie.musicbyyourears.repo.entity.UserEntity;
+import com.miggie.musicbyyourears.repo.entity.*;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateSoundRequest;
 import com.miggie.musicbyyourears.service.SoundService;
 import com.miggie.musicbyyourears.service.mappers.IconCreateMapper;
+import com.miggie.musicbyyourears.service.mappers.IconViewMapper;
 import com.miggie.musicbyyourears.service.mappers.SoundCreateMapper;
 import com.miggie.musicbyyourears.service.mappers.SoundViewMapper;
 import lombok.AllArgsConstructor;
@@ -20,9 +18,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.swing.text.IconView;
+import javax.transaction.Transactional;
 import java.util.Objects;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class DefaultSoundService implements SoundService {
 
@@ -38,6 +39,9 @@ public class DefaultSoundService implements SoundService {
     /** Icon Create Mapper **/
     private final IconCreateMapper iconCreateMapper;
 
+    /** Icon View Mapper **/
+    private final IconViewMapper iconViewMapper;
+
     /** Sound View Mapper **/
     private final SoundViewMapper soundViewMapper;
 
@@ -45,12 +49,17 @@ public class DefaultSoundService implements SoundService {
     private final SoundCreateMapper soundCreateMapper;
 
     @Override
-    public SoundDto create(CreateSoundRequest createSoundRequest) {
+    public SoundDto create(CreateSoundRequest createSoundRequest, CreateIconRequest createIconRequest) {
+        Objects.requireNonNull(createIconRequest);
         Objects.requireNonNull(createSoundRequest);
 
-        CreateIconRequest createIconRequest = (CreateIconRequest) createSoundRequest.getIconRequest();
-        IconsEntity iconsEntity = this.iconRepository.save(this.iconCreateMapper.toEntity(createIconRequest));
-        createSoundRequest.setIconRequest(this.iconCreateMapper.toDto(iconsEntity));
+        IconsEntity iconsEntity = this.iconCreateMapper.toEntity(createIconRequest);
+        iconsEntity = this.iconRepository.save(iconsEntity);
+
+        IconsDto iconsDto = this.iconViewMapper.toDto(iconsEntity);
+        createSoundRequest.setIcon(iconsDto);
+        //TODO
+        createSoundRequest.setUserId(1L);
 
         SoundEntity soundEntity = this.soundCreateMapper.toEntity(createSoundRequest);
 

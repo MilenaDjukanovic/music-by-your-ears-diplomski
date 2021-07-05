@@ -1,0 +1,46 @@
+.wrap{
+  max-height: 400px;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.comment-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+.submit-button {
+  margin: 10px;
+}
+
+.close-button {
+  position: sticky;
+}
+
+.user-comment {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment {
+  padding: 10px;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

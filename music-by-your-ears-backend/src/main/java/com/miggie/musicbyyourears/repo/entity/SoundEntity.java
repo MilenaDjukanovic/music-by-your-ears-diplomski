@@ -18,9 +18,19 @@ public class SoundEntity {
     private Long id;
 
     /** Sound name **/
+    @Column(name = "name_to_show" , nullable = false)
+    @Getter @Setter
+    private String nameToShow;
+
+    /** Sound name **/
     @Column(nullable = false)
     @Getter @Setter
     private String name;
+
+    /** Sound file name **/
+    @Column(name = "audio_file", nullable = false)
+    @Getter @Setter
+    private String audioFile;
 
     /** Audio **/
     @Lob

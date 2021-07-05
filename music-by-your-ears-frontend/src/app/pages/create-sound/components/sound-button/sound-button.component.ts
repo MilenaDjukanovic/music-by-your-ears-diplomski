@@ -18,7 +18,8 @@ export class SoundButtonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.audio.src = this.soundUrl;
+    this.audio = this.soundUrl;
+    // this.audio.src = this.soundUrl;
     this.audio.loop = true;
     this.audio.load();
   }

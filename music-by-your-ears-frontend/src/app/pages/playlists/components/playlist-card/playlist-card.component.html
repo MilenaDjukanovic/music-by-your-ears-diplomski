@@ -1,9 +1,9 @@
 <mat-card class="container">
-  <img mat-card-image src="{{this.image}}" alt="">
+  <img alt="" mat-card-image src="{{this.playlist.coverImage.image}}">
   <mat-card-content class="content">
     <div>
-      <mat-card-title>{{this.title}}</mat-card-title>
-      <mat-card-subtitle>{{this.artist}}</mat-card-subtitle>
+      <mat-card-title>{{this.playlist.nameToShow}}</mat-card-title>
+      <mat-card-subtitle>{{this.playlist.artist}}</mat-card-subtitle>
     </div>
     <mat-card-actions class="controls">
       <button mat-icon-button>
@@ -14,14 +14,19 @@
                   *ngIf="!this.audio.paused">pause
         </mat-icon>
       </button>
-      <mat-slider class="slider" [value]="this.currentTimePlayed" color="primary"
-                  thumbLabel
-                  [max]="this.audio.duration"
+      <mat-slider (input)="this.onInputChanged($event)" [displayWith]="this.formatLabel" [max]="this.audio.duration"
                   [step]="0.1"
-                  [displayWith]="this.formatLabel"
-                  (input)="this.onInputChanged($event)"
+                  [value]="this.currentTimePlayed"
+                  class="slider"
+                  color="primary"
+                  thumbLabel
       ></mat-slider>
-      <button mat-stroked-button (click)="openDialog()">See details</button>
+      <button (click)="onOpenDialog()" mat-stroked-button>See comments</button>
+      <button (click)="this.downloadPlaylist()"
+              *ngIf="this.showDownloadButton" class="download-button" mat-mini-fab>
+        <mat-icon>download</mat-icon>
+      </button>
+      <button (click)="this.deletePlaylist()" *ngIf="this.showDelete" mat-stroked-button>Delete</button>
     </mat-card-actions>
   </mat-card-content>
 </mat-card>

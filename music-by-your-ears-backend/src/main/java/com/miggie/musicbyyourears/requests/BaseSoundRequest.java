@@ -10,15 +10,19 @@ public abstract class BaseSoundRequest {
 
     /** Sound name **/
     @NotBlank
+    private String nameToShow;
+
+    /** Sound name **/
+    @NotBlank
     private String name;
+
+    /** Sound name **/
+    @NotBlank
+    private String audioFile;
 
     /** Audio **/
     @NotNull
     private byte[] audio;
-
-    /** Icon for the sound **/
-    @NotNull
-    private BaseIconRequest iconRequest;
 
     /** Is the sound public **/
     private boolean soundPublic = false;
