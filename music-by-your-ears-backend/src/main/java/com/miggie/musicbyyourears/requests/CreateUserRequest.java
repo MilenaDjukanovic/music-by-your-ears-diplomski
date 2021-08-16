@@ -4,12 +4,21 @@ import com.miggie.musicbyyourears.repo.entity.IconsDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CreateUserRequest extends BaseUserRequest{
+
+    /** Username **/
+    @NotBlank @Email
+    private String username;
+
+    /** Password **/
+    @NotBlank
+    private String password;
 
     /** Repeated password (for confirmation) **/
     @NotBlank

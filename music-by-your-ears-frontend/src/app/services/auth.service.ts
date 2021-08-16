@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {AuthUser, CreateUser, IUser} from '../model/user.model';
+import {AuthUser, CreateUser, IBaseUser, ICreateUser, IUser, UpdateUser} from '../model/user.model';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -13,6 +13,10 @@ export class AuthService {
 
   private readonly API_REGISTER = '/register/user';
   private readonly API_LOGIN = '/login';
+  private readonly API_GET_LOGGED_IN_USER = '/user';
+  private readonly API_UPDATE_USER = '/update/user';
+  private readonly API_UPDATE_USER_IMAGE = '/update/user/image';
+
 
   private readonly LOCAL_STORAGE_USER: string = 'currentUser';
   private readonly LOCAL_STORAGE_USER_TOKEN: string = 'userToken';
@@ -59,6 +63,21 @@ export class AuthService {
         return response.body as IUser;
       })
     );
+  }
+
+  public getLoggedInUser(): Observable<ICreateUser> {
+    const url = this.BASE_URL + this.API_GET_LOGGED_IN_USER;
+    return this.httpClient.get<ICreateUser>(url);
+  }
+
+  public updateUser(userForUpdate: UpdateUser): Observable<ICreateUser> {
+    const url = this.BASE_URL + this.API_UPDATE_USER;
+    return this.httpClient.post<ICreateUser>(url, userForUpdate);
+  }
+
+  public updateUserImage(image: FormData): Observable<ICreateUser> {
+    const url = this.BASE_URL + this.API_UPDATE_USER_IMAGE;
+    return this.httpClient.post<ICreateUser>(url, image);
   }
 
   public logout(): void {

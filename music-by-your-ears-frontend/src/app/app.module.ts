@@ -41,6 +41,9 @@ import {CreateSoundFormComponent} from './pages/upload-sounds/components/create-
 import {CreatePlaylistFormComponent} from './pages/upload-sounds/components/create-playlist-form/create-playlist-form.component';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
+import { UserCardComponent } from './pages/user-profile/components/user-card/user-card.component';
+import { EditProfileDialogComponent } from './pages/user-profile/components/edit-profile-dialog/edit-profile-dialog.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,9 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
     BaseRegisterComponent,
     LoginComponent,
     RegisterComponent,
-    UploadSoundsComponent
+    UploadSoundsComponent,
+    UserCardComponent,
+    EditProfileDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +89,7 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
     MatFileUploadModule,
     MatInputModule,
     MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
               { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],

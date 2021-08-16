@@ -15,6 +15,7 @@ export class BaseRegisterComponent implements OnInit {
   @Input() public buttonLabel!: string;
   @Input() public header!: string;
   @Input() public showUploadImage!: boolean;
+  @Input() public showHeader!: boolean;
 
   @Output() public formSubmitted: EventEmitter<any> = new EventEmitter<any>();
 
@@ -54,11 +55,6 @@ export class BaseRegisterComponent implements OnInit {
 
   public onFormSubmit(): void{
     if (this.registrationForm.invalid){
-      return;
-    }
-
-    if (this.showUploadImage && !this.coverImage) {
-      this.imageError = 'You must insert image';
       return;
     }
 

@@ -4,7 +4,7 @@
       Playlists
     </mat-card-title>
     <mat-card-subtitle>
-      If you're not sure how to create your own ambient, we've generated some playlists for you!
+      If you're not sure how to create your own ambient, listen to playlists others have created!
     </mat-card-subtitle>
   </mat-card>
   <div class="container">
@@ -12,6 +12,7 @@
                        [playlist]="playlist"
                        [showDownloadButton]="true"
                        (playlistDownloaded)="this.onPlaylistDownload($event);"
+                       (playlistDeleted)="this.onDeletePlaylist()"
     ></app-playlist-card>
   </div>
 </div>

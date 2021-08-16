@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IPlaylist, Playlist} from '../../model/playlist.model';
+import {IPlaylist} from '../../model/playlist.model';
 import {PlaylistService} from '../../services/playlist.service';
 import {base64StringToBlob} from 'blob-util';
 
@@ -16,13 +16,7 @@ export class PlaylistsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.playlistService.getPlaylists().subscribe(
-      (data) => {
-        this.playlistConfiguration = data.content;
-      }, error => {
-
-      }
-    );
+    this.getPlaylists();
   }
 
   public onPlaylistDownload($event: any): void {
@@ -35,4 +29,19 @@ export class PlaylistsComponent implements OnInit {
     anchor.click();
     anchor.remove();
   }
+
+  public onDeletePlaylist(): void {
+    this.getPlaylists();
+  }
+
+  private getPlaylists(): void {
+    this.playlistService.getPlaylists().subscribe(
+      (data) => {
+        this.playlistConfiguration = data.content;
+      }, error => {
+
+      }
+    );
+  }
+
 }

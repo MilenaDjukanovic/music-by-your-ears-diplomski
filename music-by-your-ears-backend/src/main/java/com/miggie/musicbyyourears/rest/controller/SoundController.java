@@ -3,6 +3,7 @@ package com.miggie.musicbyyourears.rest.controller;
 import com.miggie.musicbyyourears.repo.entity.SoundDto;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateSoundRequest;
+import com.miggie.musicbyyourears.service.AuthorizationService;
 import com.miggie.musicbyyourears.service.SoundService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,10 +19,12 @@ public class SoundController {
     /** Sound Service **/
     private final SoundService soundService;
 
+    /** Authorization Service **/
+    private final AuthorizationService authorizationService;
+
     @GetMapping()
     private Page<SoundDto> findByUserAndPublic() {
-        Long userId = 1L;
-        return this.soundService.findByUserAndSoundPublic(userId, true);
+        return this.soundService.findByUserAndSoundPublic(this.authorizationService.getAuthenticatedUser().getId(), true);
     }
 
     @PostMapping

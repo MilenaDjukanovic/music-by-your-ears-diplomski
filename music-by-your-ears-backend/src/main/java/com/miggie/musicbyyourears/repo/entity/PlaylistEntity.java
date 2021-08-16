@@ -34,7 +34,7 @@ public class PlaylistEntity {
     private String name;
 
     /** Playlist cover **/
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "icon_id", nullable = false)
     @Getter @Setter
     private IconsEntity coverImage;

@@ -27,4 +27,9 @@ public class ReviewsController {
     private ReviewsDto create(@RequestBody CreateReviewRequest createReviewRequest) {
         return this.reviewService.create(createReviewRequest);
     }
+
+    @DeleteMapping("delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        this.reviewService.delete(id);
+    }
 }

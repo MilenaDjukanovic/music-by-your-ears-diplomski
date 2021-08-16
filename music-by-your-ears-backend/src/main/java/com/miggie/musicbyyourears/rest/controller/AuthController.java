@@ -5,14 +5,17 @@ import com.miggie.musicbyyourears.repo.entity.UserEntity;
 import com.miggie.musicbyyourears.requests.AuthUserRequest;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateUserRequest;
+import com.miggie.musicbyyourears.requests.UpdateUserRequest;
 import com.miggie.musicbyyourears.security.JwtTokenUtil;
 import com.miggie.musicbyyourears.service.AuthorizationService;
 import com.miggie.musicbyyourears.service.UserService;
 import com.miggie.musicbyyourears.service.mappers.UserViewMapper;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -68,39 +71,23 @@ public class AuthController {
 
     /**
      * Creates user
-     * @param imageFile user profile image
-     * @param firstName user first name
-     * @param lastName user last name
-     * @param username username
-     * @param password password
-     * @param rePassword rePassword
-     * @param about about
      * @return DTO of created user
      * @throws IOException
      */
     @PostMapping("update/user")
-    public UserDto register(@RequestParam("imageFile")MultipartFile imageFile,
-                            @RequestParam("firstName") String firstName,
-                            @RequestParam("lastName") String lastName,
-                            @RequestParam("username") String username,
-                            @RequestParam("password") String password,
-                            @RequestParam("rePassword") String rePassword,
-                            @RequestParam("about") String about) throws IOException {
-        CreateIconRequest createIconRequest = new CreateIconRequest();
-        createIconRequest.setName(imageFile.getOriginalFilename());
-        createIconRequest.setImageFile(imageFile.getContentType());
-        createIconRequest.setImage(imageFile.getBytes());
-        //TODO
-        createIconRequest.setExtension(".jpg");
+    public UserDto update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
+        return this.userService.updateUser(updateUserRequest);
+    }
 
-        CreateUserRequest createUserRequest = new CreateUserRequest();
-        createUserRequest.setFirstName(firstName);
-        createUserRequest.setLastName(lastName);
-        createUserRequest.setPassword(password);
-        createUserRequest.setRePassword(rePassword);
-        createUserRequest.setUsername(username);
-        createUserRequest.setAbout(about);
-        return this.userService.updateUser(createUserRequest, createIconRequest);
+    @PostMapping("update/user/image")
+    public UserDto updateImage( @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+        CreateIconRequest createIconRequest = new CreateIconRequest();
+            createIconRequest.setName(imageFile.getOriginalFilename());
+            createIconRequest.setImageFile(imageFile.getContentType());
+            createIconRequest.setImage(imageFile.getBytes());
+            //TODO
+            createIconRequest.setExtension(".jpg");
+            return this.userService.updateUserImage(createIconRequest);
     }
 //
 //    @GetMapping("/{userId}")
@@ -111,4 +98,8 @@ public class AuthController {
 //        throw new AuthenticationException("Don't have access to this account");
 //    }
 
+    @GetMapping("/user")
+    public UserDto getLoggedInUser(){
+        return this.userService.getLoggedInUser();
+    }
 }

@@ -8,6 +8,7 @@ import com.miggie.musicbyyourears.repo.entity.UserDto;
 import com.miggie.musicbyyourears.repo.entity.UserEntity;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateUserRequest;
+import com.miggie.musicbyyourears.requests.UpdateUserRequest;
 import com.miggie.musicbyyourears.service.UserService;
 import com.miggie.musicbyyourears.service.mappers.IconCreateMapper;
 import com.miggie.musicbyyourears.service.mappers.IconViewMapper;
@@ -73,6 +74,9 @@ public class DefaultUserService implements UserService {
      **/
     private final IconViewMapper iconViewMapper;
 
+    /** Authorization Service **/
+    private final DefaultAuthorizationService defaultAuthorizationService;
+
     @Override
     public UserDto createUser(CreateUserRequest createUserRequest) {
         Objects.requireNonNull(createUserRequest);
@@ -94,27 +98,16 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public UserDto updateUser(CreateUserRequest createUserRequest, CreateIconRequest createIconRequest) {
-        Objects.requireNonNull(createUserRequest);
-        Objects.requireNonNull(createIconRequest);
+    public UserDto updateUser(UpdateUserRequest updateUserRequest) {
+        Objects.requireNonNull(updateUserRequest);
 
-        if (this.userRepository.findByUsername(createUserRequest.getUsername()).isPresent()) {
-            throw new ValidationException("Username exists");
-        }
+        UserEntity userEntity = this.userRepository
+                .findById(this.defaultAuthorizationService.getAuthenticatedUser().getId())
+                .orElseThrow(() -> new EntityNotFoundException("User with that id does not exist"));
 
-        if (!StringUtils.equals(createUserRequest.getPassword(), createUserRequest.getRePassword())) {
-            throw new ValidationException("Passwords do not match");
-        }
-
-        createIconRequest.setImage(FileCompressorUtil.compressBytes(createIconRequest.getImage()));
-        IconsEntity iconsEntity = this.iconCreateMapper.toEntity(createIconRequest);
-        iconsEntity = this.iconRepository.save(iconsEntity);
-
-        IconsDto iconsDto = this.iconViewMapper.toDto(iconsEntity);
-        createUserRequest.setProfileImage(iconsDto);
-
-        UserEntity userEntity = this.userCreateMapper.toEntity(createUserRequest);
-        userEntity.setPassword(this.passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setFirstName(updateUserRequest.getFirstName());
+        userEntity.setLastName(updateUserRequest.getLastName());
+        userEntity.setAbout(updateUserRequest.getAbout());
 
         userEntity = this.userRepository.save(userEntity);
 
@@ -142,4 +135,40 @@ public class DefaultUserService implements UserService {
 
         return this.userViewMapper.toDto(userEntity);
     }
+
+    @Override
+    public UserDto getLoggedInUser() {
+        UserEntity userEntity = this.userRepository
+                .findById(this.defaultAuthorizationService.getAuthenticatedUser().getId())
+                .orElseThrow(() -> new EntityNotFoundException("User with that id does not exist"));
+
+        UserDto userDto = this.userViewMapper.toDto(userEntity);
+
+        IconsEntity profileImage = userEntity.getProfileImage();
+        if(profileImage != null){
+            userDto.getProfileImage().setImage(FileCompressorUtil.decompressBytes(profileImage.getImage()));
+        }
+
+        return userDto;
+    }
+
+    @Override
+    public UserDto updateUserImage(CreateIconRequest createIconRequest) {
+        Objects.requireNonNull(createIconRequest);
+
+        UserEntity userEntity = this.userRepository
+                .findById(this.defaultAuthorizationService.getAuthenticatedUser().getId())
+                .orElseThrow(() -> new EntityNotFoundException("User with that id does not exist"));
+
+
+        createIconRequest.setImage(FileCompressorUtil.compressBytes(createIconRequest.getImage()));
+        IconsEntity iconsEntity = this.iconCreateMapper.toEntity(createIconRequest);
+        iconsEntity = this.iconRepository.save(iconsEntity);
+        userEntity.setProfileImage(iconsEntity);
+
+        userEntity = this.userRepository.save(userEntity);
+
+        return this.userViewMapper.toDto(userEntity);
+    }
+
 }

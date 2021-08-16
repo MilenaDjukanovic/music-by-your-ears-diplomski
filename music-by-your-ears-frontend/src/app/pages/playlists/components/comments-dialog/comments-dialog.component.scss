@@ -40,7 +40,15 @@ mat-form-field {
 }
 
 .comments {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  //display: flex;
+  //flex-direction: column;
+  //align-items: flex-start;
+}
+
+.delete-button {
+  margin-right: 10px;
+}
+
+.spacer{
+  flex: 1 1 auto;
 }

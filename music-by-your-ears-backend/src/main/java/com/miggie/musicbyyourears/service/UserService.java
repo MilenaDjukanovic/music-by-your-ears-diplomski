@@ -4,6 +4,7 @@ import com.miggie.musicbyyourears.repo.entity.UserDto;
 import com.miggie.musicbyyourears.repo.entity.UserEntity;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateUserRequest;
+import com.miggie.musicbyyourears.requests.UpdateUserRequest;
 
 /**
  * Service for User related operations
@@ -19,7 +20,7 @@ public interface UserService {
      */
     UserDto createUser(CreateUserRequest createUserRequest);
 
-    UserDto updateUser(CreateUserRequest createUserRequest, CreateIconRequest createIconRequest);
+    UserDto updateUser(UpdateUserRequest updateUserRequest);
 
     /**
      * Updates the passed userEntity
@@ -35,4 +36,11 @@ public interface UserService {
      */
     UserDto findById(Long id);
 
+    /**
+     * Gets logged in user
+     * @return
+     */
+    UserDto getLoggedInUser();
+
+    UserDto updateUserImage(CreateIconRequest createIconRequest);
 }

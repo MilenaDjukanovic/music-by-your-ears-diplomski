@@ -16,6 +16,10 @@
       <div *ngFor="let review of this.reviews" class="comment-wrap">
         <button class="comment-icon" mat-mini-fab>{{this.review.user.username.substring(0, 1)}}</button>
         <p class="comment">{{this.review.comment}}</p>
+        <span class="spacer"></span>
+        <button (click)="this.deleteReview(review.id)"
+                *ngIf="this.showDeleteButton || review.user.id === this.userId"
+                class="delete-button" mat-stroked-button><mat-icon>delete_outline</mat-icon></button>
       </div>
     </div>
   </div>

@@ -31,8 +31,8 @@ export class PlaylistService {
     return this.httpClient.get(url);
   }
 
-  public deletePlaylist(playlistId: number): void {
+  public deletePlaylist(playlistId: number): Observable<any> {
     const deleteUrl = this.BASE_URL + '/delete/' + playlistId;
-    this.httpClient.delete(deleteUrl);
+    return this.httpClient.delete(deleteUrl);
   }
 }

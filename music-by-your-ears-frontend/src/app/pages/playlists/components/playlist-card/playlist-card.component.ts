@@ -85,8 +85,12 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   }
 
   public deletePlaylist(): void {
-    this.playlistService.deletePlaylist(this.playlist.id);
-    this.playlistDeleted.emit();
+    this.playlistService.deletePlaylist(this.playlist.id).subscribe(data => {
+      this.playlistDeleted.emit();
+    }, error => {
+      alert('Failed do delete playlist!');
+      console.error(error);
+    });
   }
 
   public downloadPlaylist(): void {
@@ -113,22 +117,14 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   }
 
   private loadImages(): void {
-    if (this.playlist.coverImage.name.split('.')[1] === 'jpg') {
-      this.playlist.coverImage.image = 'data:image/jpg;base64,' + this.playlist.coverImage.image;
-    }
-
-    if (this.playlist.coverImage.name.split('.')[1] === 'jpeg') {
-      this.playlist.coverImage.image = 'data:image/jpeg;base64,' + this.playlist.coverImage.image;
-    }
+    const imageNameParts = this.playlist.coverImage.name.split('.');
+    const imageExtension = imageNameParts[imageNameParts.length - 1];
+    this.playlist.coverImage.image = 'data:image/' + imageExtension + ';base64,' + this.playlist.coverImage.image;
   }
 
   private loadSounds(): void {
-    if (this.playlist.name.split('.')[1] === 'mp3') {
-      this.audio = new Audio('data:audio/mp3;base64,' + this.playlist.audio);
-    }
-
-    if (this.playlist.name.split('.')[1] === 'wav') {
-      this.audio = new Audio('data:audio/wav;base64,' + this.playlist.audio);
-    }
+    const soundParts = this.playlist.name.split('.');
+    const soundExtension = soundParts[soundParts.length - 1];
+    this.audio = new Audio('data:audio/' + soundExtension + ';base64,' + this.playlist.audio);
   }
 }

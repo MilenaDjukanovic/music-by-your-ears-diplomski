@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PlaylistService} from '../../services/playlist.service';
 import {AuthService} from '../../services/auth.service';
 import {IPlaylist} from '../../model/playlist.model';
-import {User} from '../../model/user.model';
+import {ICreateUser, IUser, User} from '../../model/user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,6 +12,8 @@ import {User} from '../../model/user.model';
 export class UserProfileComponent implements OnInit {
 
   public playlists: Array<IPlaylist> = new Array<IPlaylist>();
+
+  public user!: ICreateUser;
 
   constructor(private playlistService: PlaylistService, private authService: AuthService) { }
 
@@ -28,4 +30,5 @@ export class UserProfileComponent implements OnInit {
         this.playlists = data.content;
       });
   }
+
 }

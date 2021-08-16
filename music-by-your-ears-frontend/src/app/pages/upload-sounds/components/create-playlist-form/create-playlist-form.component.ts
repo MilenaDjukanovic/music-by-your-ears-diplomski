@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {PlaylistService} from '../../../../services/playlist.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-playlist-form',
@@ -8,6 +9,8 @@ import {PlaylistService} from '../../../../services/playlist.service';
   styleUrls: ['./create-playlist-form.component.scss']
 })
 export class CreatePlaylistFormComponent implements OnInit {
+
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective | undefined;
 
   public createPlaylistForm!: FormGroup;
 
@@ -18,7 +21,9 @@ export class CreatePlaylistFormComponent implements OnInit {
   public artistError = 'Must insert artist';
   public playlistError = 'Must insert playlist name';
 
-  constructor(private formBuilder: FormBuilder, private playlistService: PlaylistService) { }
+  constructor(private formBuilder: FormBuilder, private playlistService: PlaylistService,
+              private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.createPlaylistForm = this.formBuilder.group({
@@ -27,7 +32,7 @@ export class CreatePlaylistFormComponent implements OnInit {
     });
   }
 
-  public onSubmit(formDirective: FormGroupDirective): void {
+  public onSubmit(): void {
     if (!this.createPlaylistForm.valid || !this.audio || !this.coverImage) {
       this.error = 'Form not valid, please try again!';
       return;
@@ -42,16 +47,40 @@ export class CreatePlaylistFormComponent implements OnInit {
     playlistData.append('nameToShow', formValues.name);
 
     this.playlistService.createPlaylist(playlistData).subscribe((data) => {
-          this.createPlaylistForm.reset('');
-          formDirective.reset();
+      this.clearForm();
+      this.openSnackBar('You have successfully created new playlist!');
+    }, error => {
+      this.openSnackBar(error.message);
     });
   }
 
   public onAudioUpload($event: FileList): void {
+    if ($event) {
       this.audio = $event.item(0);
+    } else {
+      this.audio = null;
+    }
   }
 
   public onIconImageUpload($event: FileList): void {
+    if ($event) {
       this.coverImage = $event.item(0);
+    } else {
+      this.coverImage = null;
+    }
+  }
+
+  private clearForm(): void {
+    setTimeout(() => {
+      this.formGroupDirective?.resetForm();
+    }, 0);
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['primary']
+    });
   }
 }

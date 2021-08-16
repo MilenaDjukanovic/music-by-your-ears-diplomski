@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  background-color: rgba(29, 29, 29, 0.7);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid deeppink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.profile-image {
+  width: auto;
+  height: 100%;
+}
+
+.content {
+  width: 80%;
+}
+
+.card-config {
+  width: 100%;
+}
+
+.edit-button {
+  margin-right: 10px;
+}
+
+.actions {
+  float: right;
+}
+
+.upload-image {
+  margin-bottom: 20px;
+}
+
+.about {
+  resize: none;
+}
+
+@media only screen and (max-width: 600px){
+  .content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,47 @@
+<mat-card class="container">
+  <div class="header">
+    <mat-card-title>
+      Your profile
+    </mat-card-title>
+    <div class="image-container">
+      <img alt="" class="profile-image" src="{{this.userProfileImage}}">
+    </div>
+    <button mat-stroked-button color="primary" class="upload-image" (click)="this.openDialog()">Update picture</button>
+  </div>
+  <form *ngIf="this.updateUserForm" [formGroup]="this.updateUserForm" class="content">
+  <mat-card-content>
+      <p>
+        First name:
+        <mat-form-field class="card-config">
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+      </p>
+
+    <p>
+      Last name:
+      <mat-form-field class="card-config">
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+    </p>
+
+      <p>
+        About:
+        <mat-form-field class="card-config">
+          <textarea class="about" matInput formControlName="about"></textarea>
+        </mat-form-field>
+      </p>
+
+    <mat-error *ngIf="this.error">
+      {{this.error}}
+    </mat-error>
+    <div class="actions">
+    <button class="edit-button" (click)="this.enableFields();" mat-flat-button color="primary">
+      Edit profile
+    </button>
+    <button [disabled]="!this.updateUserForm.enabled" (click)="this.updateUser();" mat-flat-button color="primary">
+      Save profile
+    </button>
+    </div>
+  </mat-card-content>
+  </form>
+</mat-card>

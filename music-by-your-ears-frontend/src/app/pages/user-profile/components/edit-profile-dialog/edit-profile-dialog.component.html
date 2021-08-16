@@ -1,0 +1,15 @@
+<div class="container">
+  <mat-file-upload (selectedFilesChanged)="this.onIconImageUpload($event)"
+                   [acceptedTypes]="'.jpg, .jpeg'"
+                   [allowMultipleFiles]="false"
+                   [labelText]="'Upload image'"
+                   [selectButtonText]="'Choose image'"
+                   [showUploadButton]="false"
+                   class="upload-image"
+  ></mat-file-upload>
+  <mat-error *ngIf="this.error">{{this.error}}</mat-error>
+  <div class="actions">
+    <button (click)="this.updateUser()" [mat-dialog-close]="this.user" color="primary" mat-flat-button>Save</button>
+    <button (click)="this.close()" mat-flat-button>Close</button>
+  </div>
+</div>

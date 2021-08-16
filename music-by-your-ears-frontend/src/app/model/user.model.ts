@@ -1,17 +1,30 @@
+import {Icon} from './icons.model';
+
+// tslint:disable-next-line:no-empty-interface
 export interface IBaseUser {
+
+}
+
+export interface IAuthUser extends IBaseUser {
   username: string;
   password: string;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface IAuthUser extends IBaseUser {
-}
-
 export interface ICreateUser extends  IBaseUser {
+  username: string;
+  password: string;
   rePassword: string;
   firstName: string;
   lastName: string;
   about: string;
+  profileImage?: Icon;
+}
+
+export interface IUpdateUser extends  IBaseUser {
+  firstName?: string;
+  lastName?: string;
+  about?: string;
+  profileImage?: Icon;
 }
 
 export interface IUser extends IBaseUser {
@@ -40,6 +53,16 @@ export class CreateUser implements ICreateUser {
     public rePassword: string,
     public firstName: string,
     public lastName: string,
-    public about: string
+    public about: string,
+    public profileImage?: Icon
+  ){}
+}
+
+export class UpdateUser implements IUpdateUser {
+  constructor(
+    public firstName?: string,
+    public lastName?: string,
+    public about?: string,
+    public profileImage?: Icon
   ){}
 }

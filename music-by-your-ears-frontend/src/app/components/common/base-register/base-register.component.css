@@ -30,7 +30,7 @@ mat-card{
 }
 
 .card {
-  max-width: 25%;
+  max-width: 25em;
 }
 
 .form-field {

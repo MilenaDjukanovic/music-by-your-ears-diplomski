@@ -20,4 +20,9 @@ export class ReviewService {
   public createReview(createReview: CreateReview): Observable<IReview> {
     return this.httpClient.post<IReview>(this.BASE_URL, createReview);
   }
+
+  public deleteReview(reviewId: number): Observable<any> {
+    const deleteUrl = this.BASE_URL + '/delete/' + reviewId;
+    return this.httpClient.delete(deleteUrl);
+  }
 }

@@ -1,7 +1,7 @@
 <div class="card-wrapper">
   <mat-card class="card-content">
     <mat-card-title>Create playlist</mat-card-title>
-    <form [formGroup]="this.createPlaylistForm" (ngSubmit)="this.onSubmit(formDirective)" class="card-content" #formDirective="ngForm">
+    <form [formGroup]="this.createPlaylistForm" (ngSubmit)="this.onSubmit()" class="card-content" #formDirective="ngForm">
       <p class="form-item">
         <mat-form-field>
           <input type="text" matInput placeholder="Playlist name" formControlName="name">

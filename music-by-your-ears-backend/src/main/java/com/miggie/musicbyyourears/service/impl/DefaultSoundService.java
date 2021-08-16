@@ -98,7 +98,7 @@ public class DefaultSoundService implements SoundService {
 
         Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
 
-        return this.soundRepository.findByUserAndSoundPublic(userEntity, soundPublic, pageable)
+        return this.soundRepository.findByUserOrSoundPublic(userEntity, soundPublic, pageable)
                 .map(this.soundViewMapper::toDto);
     }
 }

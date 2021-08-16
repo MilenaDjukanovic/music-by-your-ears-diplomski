@@ -28,5 +28,5 @@ public interface SoundRepository extends JpaRepository<SoundEntity, Long> {
      * @param soundPublic
      * @return
      */
-    Page<SoundEntity> findByUserAndSoundPublic(UserEntity userEntity, boolean soundPublic, Pageable pageable);
+    Page<SoundEntity> findByUserOrSoundPublic(UserEntity userEntity, boolean soundPublic, Pageable pageable);
 }

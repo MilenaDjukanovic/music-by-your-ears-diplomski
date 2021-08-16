@@ -1,8 +1,8 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DialogData} from '../playlist-card/playlist-card.component';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CreateReview, IReview} from '../../../../model/reviews.model';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
+import {CreateReview} from '../../../../model/reviews.model';
 import {AuthService} from '../../../../services/auth.service';
 import {ReviewService} from '../../../../services/review.service';
 
@@ -13,19 +13,25 @@ import {ReviewService} from '../../../../services/review.service';
 })
 export class CommentsDialogComponent implements OnInit {
 
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective | undefined;
+
   public commentForm!: FormGroup;
   public error!: string;
   public reviews!: any[];
 
+  public showDeleteButton = false;
+  public userId!: number;
+
   constructor(public dialogRef: MatDialogRef<CommentsDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData, private formBuilder: FormBuilder,
-              private authService: AuthService, private reviewService: ReviewService){
+              private authService: AuthService, private reviewService: ReviewService) {
 
     this.reviews = this.data.reviews;
+    this.userId = this.authService.getCurrentUserValue().id;
+    this.displayDeleteButton();
   }
 
   ngOnInit(): void {
-    // this.getReviews();
     this.commentForm = this.formBuilder.group({
       comment: ['', Validators.required]
     });
@@ -46,8 +52,14 @@ export class CommentsDialogComponent implements OnInit {
 
     this.reviewService.createReview(createReview).subscribe((data) => {
       this.getReviews();
-      this.commentForm.controls.comment.reset('');
+      this.clearForm();
     }, error => {
+    });
+  }
+
+  public deleteReview(reviewId: number): void {
+    this.reviewService.deleteReview(reviewId).subscribe(data => {
+      this.getReviews();
     });
   }
 
@@ -55,5 +67,17 @@ export class CommentsDialogComponent implements OnInit {
     this.reviewService.getReviewsForPlaylist(this.data.playlist.id).subscribe((data) => {
       this.reviews = data.content;
     });
+  }
+
+  private displayDeleteButton(): void {
+    if (this.data.playlist.id === this.userId) {
+      this.showDeleteButton = true;
+    }
+  }
+
+  private clearForm(): void {
+    setTimeout(() => {
+      this.formGroupDirective?.resetForm();
+    }, 0);
   }
 }

@@ -7,6 +7,7 @@ import com.miggie.musicbyyourears.repo.entity.PlaylistEntity;
 import com.miggie.musicbyyourears.repo.entity.ReviewsDto;
 import com.miggie.musicbyyourears.repo.entity.ReviewsEntity;
 import com.miggie.musicbyyourears.requests.CreateReviewRequest;
+import com.miggie.musicbyyourears.service.AuthorizationService;
 import com.miggie.musicbyyourears.service.ReviewService;
 import com.miggie.musicbyyourears.service.mappers.ReviewViewMapper;
 import com.miggie.musicbyyourears.service.mappers.ReviewsCreateMapper;
@@ -34,6 +35,9 @@ public class DefaultReviewsService implements ReviewService {
     /** Playlist Repository **/
     private final PlaylistRepository playlistRepository;
 
+    /** Authorization Service **/
+    private final AuthorizationService authorizationService;
+
     @Override
     public ReviewsDto create(CreateReviewRequest createReviewRequest) {
         ReviewsEntity reviewsEntity = this.reviewsCreateMapper.toEntity(createReviewRequest);
@@ -60,6 +64,15 @@ public class DefaultReviewsService implements ReviewService {
 
     @Override
     public void delete(Long reviewId) {
+        Objects.requireNonNull(reviewId);
+
+        ReviewsEntity reviewsEntity = this.reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("Review with that id can not be found"));
+
+        if(reviewsEntity.getUser().getId().equals(this.authorizationService.getAuthenticatedUser().getId())
+            || reviewsEntity.getPlaylist().getUser().getId().equals(this.authorizationService.getAuthenticatedUser().getId())) {
+            this.reviewRepository.deleteById(reviewId);
+        }
 
     }
 }

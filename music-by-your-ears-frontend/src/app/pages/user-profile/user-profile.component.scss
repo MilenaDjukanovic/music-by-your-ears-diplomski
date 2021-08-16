@@ -8,6 +8,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 20px;
+  background-color: rgba(29, 29, 29, 0.7);
 }
 
 .playlist-container{
@@ -16,8 +18,4 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-}
-
-mat-card {
-  background-color: rgba(29, 29, 29, 0.7);
 }

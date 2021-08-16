@@ -1,4 +1,5 @@
 <div class="wrap">
+  <app-user-card class="playlist-wrap"></app-user-card>
   <div *ngIf="!(this.playlists.length === 0); else noPlaylists" class="playlist-wrap">
     <mat-card class="container">
       <mat-card-title>Your playlists</mat-card-title>
@@ -11,7 +12,7 @@
     </mat-card>
   </div>
   <ng-template #noPlaylists>
-    <mat-card>
+    <mat-card class="container">
       <mat-card-title>You haven't created any playlists yet!</mat-card-title>
     </mat-card>
   </ng-template>
