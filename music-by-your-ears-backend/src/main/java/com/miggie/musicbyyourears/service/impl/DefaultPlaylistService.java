@@ -2,6 +2,7 @@ package com.miggie.musicbyyourears.service.impl;
 
 import com.miggie.musicbyyourears.repo.IconRepository;
 import com.miggie.musicbyyourears.repo.PlaylistRepository;
+import com.miggie.musicbyyourears.repo.ReviewRepository;
 import com.miggie.musicbyyourears.repo.UserRepository;
 import com.miggie.musicbyyourears.repo.entity.*;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
@@ -30,6 +31,8 @@ public class DefaultPlaylistService implements PlaylistService {
 
     /** Playlist Create Mapper **/
     private final PlaylistCreateMapper playlistCreateMapper;
+
+    private final ReviewRepository reviewRepository;
 
     /** Playlist View Mapper **/
     private final PlaylistViewMapper playlistViewMapper;
@@ -102,6 +105,7 @@ public class DefaultPlaylistService implements PlaylistService {
                 .orElseThrow(() -> new EntityNotFoundException("Playlist with that id can not be found"));
 
         if(playlistEntity.getUser().getId().equals(this.authorizationService.getAuthenticatedUser().getId())) {
+
             this.playlistRepository.deleteById(playlistId);
         }
     }

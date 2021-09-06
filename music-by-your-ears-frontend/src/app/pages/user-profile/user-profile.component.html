@@ -9,6 +9,11 @@
                          (playlistDeleted)="this.refreshView();"
       ></app-playlist-card>
       </div>
+      <div *ngIf="this.showSeeMore" class="extend-content">
+        <button matTooltip="See more" mat-fab (click)="this.getPlaylistsForUser()" color="primary" class="extend">
+          <mat-icon>expand_more</mat-icon>
+        </button>
+      </div>
     </mat-card>
   </div>
   <ng-template #noPlaylists>

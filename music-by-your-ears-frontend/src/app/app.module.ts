@@ -44,6 +44,7 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
 import { UserCardComponent } from './pages/user-profile/components/user-card/user-card.component';
 import { EditProfileDialogComponent } from './pages/user-profile/components/edit-profile-dialog/edit-profile-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatFileUploadModule,
     MatInputModule,
     MatRadioModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxSpinnerModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
               { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],

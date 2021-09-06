@@ -1,4 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Sound} from '../../../../model/sound.model';
 
 @Component({
   selector: 'app-sound-button',
@@ -7,9 +8,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 })
 export class SoundButtonComponent implements OnInit, OnDestroy {
 
-  @Input() public title!: string;
-  @Input() public soundUrl!: string;
-  @Input() public icon!: string;
+  @Input() public sound!: Sound;
 
   public active = false;
   private audio: any = new Audio();
@@ -18,8 +17,7 @@ export class SoundButtonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.audio = this.soundUrl;
-    // this.audio.src = this.soundUrl;
+    this.audio = this.sound.audio;
     this.audio.loop = true;
     this.audio.load();
   }

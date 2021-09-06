@@ -24,6 +24,7 @@
     "blob-util": "^2.0.2",
     "mat-file-upload": "^11.1.2",
     "ngx-audio-player": "^11.0.4",
+    "ngx-spinner": "^11.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

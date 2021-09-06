@@ -80,6 +80,10 @@ export class CreateSoundFormComponent implements OnInit {
   }
 
   private openSnackBar(message: string): void {
-    this.snackBar.open(message);
+    this.snackBar.open(message, '', {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['primary']
+    });
   }
 }

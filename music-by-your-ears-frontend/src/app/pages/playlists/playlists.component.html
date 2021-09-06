@@ -15,4 +15,9 @@
                        (playlistDeleted)="this.onDeletePlaylist()"
     ></app-playlist-card>
   </div>
+  <div *ngIf="this.showSeeMore" class="extend-content">
+    <button matTooltip="See more" mat-fab (click)="this.getPlaylists()" color="primary" class="extend">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+  </div>
 </div>

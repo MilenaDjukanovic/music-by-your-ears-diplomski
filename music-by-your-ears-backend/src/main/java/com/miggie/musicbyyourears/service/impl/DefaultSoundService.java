@@ -94,11 +94,23 @@ public class DefaultSoundService implements SoundService {
         Objects.requireNonNull(userId);
 
         UserEntity userEntity = this.userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Sound with that id can not be found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with that id can not be found"));
 
         Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
 
         return this.soundRepository.findByUserOrSoundPublic(userEntity, soundPublic, pageable)
                 .map(this.soundViewMapper::toDto);
+    }
+
+    @Override
+    public Page<SoundDto> findByUser() {
+        Long userId = this.authorizationService.getAuthenticatedUser().getId();
+
+        UserEntity userEntity = this.userRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("User with that id can not be found"));
+
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
+
+        return this.soundRepository.findByUser(userEntity, pageable).map(this.soundViewMapper::toDto);
     }
 }

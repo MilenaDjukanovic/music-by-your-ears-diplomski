@@ -41,4 +41,10 @@ public interface SoundService {
      * @return soundDto
      */
     Page<SoundDto> findByUserAndSoundPublic(Long userId, boolean soundPublic);
+
+    /**
+     * Finds sound for a specific user
+     * @return page os soundDto
+     */
+    Page<SoundDto> findByUser();
 }

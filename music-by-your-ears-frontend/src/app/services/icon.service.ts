@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
-import {CreateIcon, Icon} from '../model/icons.model';
+import {Icon} from '../model/icons.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Playlist} from '../model/playlist.model';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,14 @@ export class IconService {
 
   private readonly BASE_URL  = 'spring/api/icons';
   constructor(private matIconRegistry: MatIconRegistry,
-              private domSanitizer: DomSanitizer, private httpClient: HttpClient) { }
+              private domSanitizer: DomSanitizer, private httpClient: HttpClient,
+              private spinner: NgxSpinnerService) { }
 
   public registerIcons(): void {
+    this.spinner.show();
     this.getIcons().subscribe((data) => {
       this.loadIcons(data.content);
+      this.spinner.hide();
     });
   }
 

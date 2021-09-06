@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SoundService} from '../../services/sound.service';
 import {ISound} from '../../model/sound.model';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-sound',
@@ -11,10 +12,11 @@ export class CreateSoundComponent implements OnInit {
 
   public soundConfiguration: Array<ISound> = new Array<ISound>();
 
-  constructor(private soundService: SoundService) {
+  constructor(private soundService: SoundService, private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.soundService.getSounds().subscribe(
       (data) => {
         this.soundConfiguration = data.content;
@@ -35,6 +37,7 @@ export class CreateSoundComponent implements OnInit {
         sound.audio = new Audio('data:audio/wav;base64,' + sound.audio);
       }
    }
+    this.spinner.hide();
   }
 
 }

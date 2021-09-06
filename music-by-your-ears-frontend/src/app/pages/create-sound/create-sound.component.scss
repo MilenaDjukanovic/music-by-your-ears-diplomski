@@ -15,9 +15,8 @@
   background-color: rgba(17, 16, 16, 0.5);
 }
 
-
 .background-controls {
-  min-width: 76%;
+  min-width: 73%;
 }
 
 .content {
@@ -38,5 +37,13 @@
 @media screen and (max-width: 600px) {
   .subtitle {
     max-width: 100%;
+  }
+
+  .background-controls{
+    max-width: 70%;
+  }
+
+  .button-container {
+    max-width: 80%;
   }
 }

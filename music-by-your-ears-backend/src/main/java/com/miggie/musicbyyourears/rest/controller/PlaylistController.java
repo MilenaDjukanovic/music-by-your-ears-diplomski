@@ -25,13 +25,13 @@ public class PlaylistController {
     private final PlaylistService playlistService;
 
     @GetMapping("all")
-    public Page<PlaylistDto> findAll(Pageable pageable) {
+    public Page<PlaylistDto> findAll(
+            Pageable pageable) {
         return this.playlistService.findAll(pageable);
     }
 
     @GetMapping("/{userId}")
-    public Page<PlaylistDto> findForUser(@PathVariable Long userId) {
-        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
+    public Page<PlaylistDto> findForUser(@PathVariable Long userId, Pageable pageable) {
         return this.playlistService.findByUserId(userId, pageable);
     }
 

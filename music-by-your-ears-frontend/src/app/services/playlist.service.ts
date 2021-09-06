@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {IPageable} from '../model/requests';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,13 @@ export class PlaylistService {
     return this.httpClient.get(getUrl);
   }
 
-  public getPlaylistsForLoggedInUser(userId: number): Observable<any> {
-    const url = this.BASE_URL + '/' + userId;
+  public getPlaylists2(pageable: IPageable): Observable<any> {
+    const getUrl = this.BASE_URL + '/all' + '?page=' + pageable.page + '&size=' + pageable.size;
+    return this.httpClient.get(getUrl);
+  }
+
+  public getPlaylistsForLoggedInUser(userId: number, pageable: IPageable): Observable<any> {
+    const url = this.BASE_URL + '/' + userId + '?page=' + pageable.page + '&size=' + pageable.size;
     return this.httpClient.get(url);
   }
 
