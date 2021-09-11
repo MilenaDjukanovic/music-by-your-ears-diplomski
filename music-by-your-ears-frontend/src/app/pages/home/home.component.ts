@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {comments} from '../../configuration/comments';
 import {flipCards} from '../../configuration/flip-cards';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,16 @@ export class HomeComponent implements OnInit {
 
   public flipCardConfiguration = flipCards;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  public navigateToCreateSound(): void {
+    this.router.navigate(['/create-sound']);
+  }
+
+  public navigateToPlaylist(): void {
+    this.router.navigate(['/playlists']);
+  }
 }

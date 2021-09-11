@@ -24,8 +24,8 @@
       </div>
     </div>
     <div class="actions">
-      <button color="accent" mat-flat-button> Create sound</button>
-      <button color="accent" mat-flat-button> Playlists</button>
+      <button color="accent" mat-flat-button (click)="this.navigateToCreateSound()"> Create sound</button>
+      <button color="accent" mat-flat-button (click)="this.navigateToPlaylist()"> Playlists</button>
     </div>
   </mat-card>
 
