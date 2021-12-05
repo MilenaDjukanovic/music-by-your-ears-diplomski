@@ -6,6 +6,7 @@ import {PlaylistService} from '../../../../services/playlist.service';
 import {IPlaylist} from '../../../../model/playlist.model';
 import {IReview} from '../../../../model/reviews.model';
 import {ReviewService} from '../../../../services/review.service';
+import {FileConverterService} from '../../../../services/file-converter.service';
 
 export interface DialogData {
   playlist: IPlaylist;
@@ -32,7 +33,7 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   public reviews!: Array<IReview>;
 
   constructor(public dialog: MatDialog, private playlistService: PlaylistService,
-              private reviewsService: ReviewService) {
+              private reviewsService: ReviewService, private fileConverterService: FileConverterService) {
     this.playlistService.pauseVideo.subscribe(() => {
       this.audio.pause();
     });
@@ -73,7 +74,7 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
         width: '400px',
         data: {playlist: this.playlist, reviews: data.content}
       });
-    }, error => {
+    }, () => {
       return new Array<IReview>();
     });
 
@@ -85,7 +86,7 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   }
 
   public deletePlaylist(): void {
-    this.playlistService.deletePlaylist(this.playlist.id).subscribe(data => {
+    this.playlistService.deletePlaylist(this.playlist.id).subscribe(() => {
       this.playlistDeleted.emit();
     }, error => {
       alert('Failed do delete playlist!');
@@ -100,7 +101,7 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   private getReviews(): any {
     this.reviewsService.getReviewsForPlaylist(this.playlist.id).subscribe((data) => {
       return data.content;
-    }, error => {
+    }, () => {
       return new Array<IReview>();
     });
   }
@@ -117,14 +118,10 @@ export class PlaylistCardComponent implements OnInit, OnDestroy {
   }
 
   private loadImages(): void {
-    const imageNameParts = this.playlist.coverImage.name.split('.');
-    const imageExtension = imageNameParts[imageNameParts.length - 1];
-    this.playlist.coverImage.image = 'data:image/' + imageExtension + ';base64,' + this.playlist.coverImage.image;
+    this.playlist.coverImage.image = this.fileConverterService.convertImages(this.playlist.coverImage);
   }
 
   private loadSounds(): void {
-    const soundParts = this.playlist.name.split('.');
-    const soundExtension = soundParts[soundParts.length - 1];
-    this.audio = new Audio('data:audio/' + soundExtension + ';base64,' + this.playlist.audio);
+    this.audio = this.fileConverterService.convertAudio(this.playlist);
   }
 }

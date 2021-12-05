@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {EditProfileDialogComponent} from '../edit-profile-dialog/edit-profile-dialog.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../../services/auth.service';
+import {FileConverterService} from '../../../../services/file-converter.service';
 
 @Component({
   selector: 'app-user-card',
@@ -20,7 +21,8 @@ export class UserCardComponent implements OnInit {
   public fieldsDisabled = true;
   public error!: string;
 
-  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder,
+              private authService: AuthService, private fileConverterService: FileConverterService) {
     this.getLoggedInUser();
   }
 
@@ -30,9 +32,7 @@ export class UserCardComponent implements OnInit {
   public loadImage(): void {
     if (this.user && this.user.profileImage) {
       if (this.user.profileImage?.image) {
-        const imageNameParts = this.user.profileImage.name.split('.');
-        const imageExtension = imageNameParts[imageNameParts.length - 1];
-        this.userProfileImage = 'data:image/' + imageExtension + ';base64,' + this.user.profileImage.image;
+        this.userProfileImage = this.fileConverterService.convertImages(this.user.profileImage);
       }
     }else {
       this.userProfileImage = '/assets/defaultProfileImages/profile.jpg';

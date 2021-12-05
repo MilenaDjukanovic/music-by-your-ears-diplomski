@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SoundService} from '../../services/sound.service';
 import {ISound} from '../../model/sound.model';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {MixSoundsService} from '../../services/mix-sounds.service';
+import {DownloadService} from '../../services/download.service';
+import {FileConverterService} from '../../services/file-converter.service';
 
 @Component({
   selector: 'app-create-sound',
@@ -12,7 +15,9 @@ export class CreateSoundComponent implements OnInit {
 
   public soundConfiguration: Array<ISound> = new Array<ISound>();
 
-  constructor(private soundService: SoundService, private spinner: NgxSpinnerService) {
+  constructor(private soundService: SoundService, private spinner: NgxSpinnerService,
+              private mixSoundService: MixSoundsService, private downloadService: DownloadService,
+              private fileConverterService: FileConverterService) {
   }
 
   ngOnInit(): void {
@@ -21,23 +26,28 @@ export class CreateSoundComponent implements OnInit {
       (data) => {
         this.soundConfiguration = data.content;
         this.loadSounds();
-      }, error => {
+      }, () => {
 
       }
     );
   }
 
-  private async loadSounds(): Promise<void>{
+  private async loadSounds(): Promise<void> {
     for (const sound of this.soundConfiguration) {
-      if (sound.name.split('.')[1] === 'mp3') {
-        sound.audio = new Audio('data:audio/mp3;base64,' + sound.audio);
-      }
+      sound.audio = this.fileConverterService.convertAudio(sound);
+    }
+    await this.spinner.hide();
+  }
 
-      if (sound.name.split('.')[1] === 'wav') {
-        sound.audio = new Audio('data:audio/wav;base64,' + sound.audio);
+  public downloadMix(): void {
+    this.soundService.getMixedSound().subscribe((data) => {
+        this.downloadService.downloadData(data);
       }
-   }
-    this.spinner.hide();
+    );
+  }
+
+  public showDownloadButton(): boolean {
+    return this.mixSoundService.getSoundsToMix().length === 0;
   }
 
 }

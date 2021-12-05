@@ -26,22 +26,13 @@ export class RegisterComponent implements OnInit {
 
   public registerUser(event: any): void {
     const creteUser: CreateUser = event.values;
-    // const userData = new FormData();
-    // userData.append('imageFile', event.coverImage, event.coverImage.name);
-    // userData.append('firstName', event.values.firstName);
-    // userData.append('lastName', event.values.lastName);
-    // userData.append('username', event.values.username);
-    // userData.append('password', event.values.password);
-    // userData.append('rePassword', event.values.rePassword);
-    // userData.append('about', event.values.about);
-
     if (creteUser.password !== creteUser.rePassword) {
       this.error = 'Passwords do not match! Please try again.';
       return;
     }
 
     this.authService.register(creteUser).pipe(first()).subscribe(
-      data => {
+      () => {
         this.router.navigate(['login']);
       },
       error => {

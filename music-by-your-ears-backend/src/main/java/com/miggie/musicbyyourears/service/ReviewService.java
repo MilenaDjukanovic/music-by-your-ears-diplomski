@@ -1,8 +1,6 @@
 package com.miggie.musicbyyourears.service;
 
-import com.miggie.musicbyyourears.repo.entity.PlaylistDto;
 import com.miggie.musicbyyourears.repo.entity.ReviewsDto;
-import com.miggie.musicbyyourears.requests.CreatePlaylistRequest;
 import com.miggie.musicbyyourears.requests.CreateReviewRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +25,6 @@ public interface ReviewService {
      * @return pageable of reviews
      */
     Page<ReviewsDto> findByPlaylist(Long playlistId, Pageable pageable);
-
-    /**
-     * Finds all reviews for user
-     * @param userId id of the user
-     * @return pageable of reviews
-     */
-    PlaylistDto findByUser(Long userId);
 
     /**
      * Deletes review entity

@@ -1,5 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Sound} from '../../../../model/sound.model';
+import {MixSoundsService} from '../../../../services/mix-sounds.service';
 
 @Component({
   selector: 'app-sound-button',
@@ -13,7 +14,7 @@ export class SoundButtonComponent implements OnInit, OnDestroy {
   public active = false;
   private audio: any = new Audio();
 
-  constructor() {
+  constructor(private mixSoundService: MixSoundsService) {
   }
 
   ngOnInit(): void {
@@ -29,7 +30,13 @@ export class SoundButtonComponent implements OnInit, OnDestroy {
   }
 
   public playAudio(): void {
-    !this.active ? this.audio.play() : this.audio.pause();
+    if (!this.active) {
+      this.audio.play();
+      this.mixSoundService.addSoundForMixing(this.sound);
+    } else  {
+      this.audio.pause();
+      this.mixSoundService.removeSoundForMixing(this.sound);
+    }
     this.active = !this.active;
   }
 }

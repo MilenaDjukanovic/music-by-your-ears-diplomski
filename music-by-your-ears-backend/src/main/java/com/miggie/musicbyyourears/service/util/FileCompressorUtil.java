@@ -57,9 +57,7 @@ public class FileCompressorUtil {
                 outputStream.write(buffer, 0, count);
             }
             outputStream.close();
-        } catch (IOException ex) {
-
-        } catch (DataFormatException ex) {
+        } catch (IOException | DataFormatException ignored) {
 
         }
 

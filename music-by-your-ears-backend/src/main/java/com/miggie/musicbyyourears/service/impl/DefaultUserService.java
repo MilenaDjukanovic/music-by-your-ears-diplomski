@@ -2,7 +2,6 @@ package com.miggie.musicbyyourears.service.impl;
 
 import com.miggie.musicbyyourears.repo.IconRepository;
 import com.miggie.musicbyyourears.repo.UserRepository;
-import com.miggie.musicbyyourears.repo.entity.IconsDto;
 import com.miggie.musicbyyourears.repo.entity.IconsEntity;
 import com.miggie.musicbyyourears.repo.entity.UserDto;
 import com.miggie.musicbyyourears.repo.entity.UserEntity;
@@ -20,9 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import javax.persistence.EntityNotFoundException;
-import javax.swing.text.IconView;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 import java.util.Objects;

@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * Mapper used for bi directional mapping between CreateReviewRequest and ReviewsEntity
+ * Mapper used for bidirectional mapping between CreateReviewRequest and ReviewsEntity
  *
  * @author mdjukanovic
  */

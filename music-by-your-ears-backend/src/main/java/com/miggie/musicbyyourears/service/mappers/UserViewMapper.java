@@ -7,7 +7,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
 /**
- * Mapper used for bi directional mapping between UserDto and UserEntity
+ * Mapper used for bidirectional mapping between UserDto and UserEntity
  *
  * @author mdjukanovic
  */

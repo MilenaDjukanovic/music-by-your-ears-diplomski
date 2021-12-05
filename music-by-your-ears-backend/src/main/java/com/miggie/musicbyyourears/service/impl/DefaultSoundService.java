@@ -3,7 +3,11 @@ package com.miggie.musicbyyourears.service.impl;
 import com.miggie.musicbyyourears.repo.IconRepository;
 import com.miggie.musicbyyourears.repo.SoundRepository;
 import com.miggie.musicbyyourears.repo.UserRepository;
-import com.miggie.musicbyyourears.repo.entity.*;
+import com.miggie.musicbyyourears.repo.entity.IconsDto;
+import com.miggie.musicbyyourears.repo.entity.IconsEntity;
+import com.miggie.musicbyyourears.repo.entity.SoundDto;
+import com.miggie.musicbyyourears.repo.entity.SoundEntity;
+import com.miggie.musicbyyourears.repo.entity.UserEntity;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import com.miggie.musicbyyourears.requests.CreateSoundRequest;
 import com.miggie.musicbyyourears.service.AuthorizationService;
@@ -19,8 +23,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.swing.text.IconView;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -112,5 +117,16 @@ public class DefaultSoundService implements SoundService {
         Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
 
         return this.soundRepository.findByUser(userEntity, pageable).map(this.soundViewMapper::toDto);
+    }
+
+    @Override
+    public List<SoundDto> getSoundsForId(List<Long> soundId){
+        List<SoundDto> sounds = new ArrayList<>();
+        for(Long id : soundId){
+            SoundEntity sound = this.soundRepository.findById(id).orElseThrow(() ->
+                    new EntityNotFoundException("Sound with that id can not be found!"));
+            sounds.add(this.soundViewMapper.toDto(sound));
+        }
+        return sounds;
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BackgroundChangeService} from '../../../services/background-change.service';
 import {fromEvent, Observable, Subscription} from 'rxjs';
 import {MatSidenavContent} from '@angular/material/sidenav';

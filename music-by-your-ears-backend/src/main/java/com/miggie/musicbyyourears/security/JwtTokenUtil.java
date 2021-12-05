@@ -11,12 +11,11 @@ public class JwtTokenUtil {
 
     private final String jwtSecret = "zdtlD3JK56m6wTTgsNFhqzjqP";
 
-    private final String jwtIssuer = "musicByYourEars.com";
-
     public String generateAccessToken(UserEntity user) {
+        String jwtIssuer = "musicByYourEars.com";
         return Jwts.builder()
                 .setSubject(String.format("%s,%s", user.getId(), user.getUsername()))
-                .setIssuer(this.jwtIssuer)
+                .setIssuer(jwtIssuer)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000))
                 .signWith(SignatureAlgorithm.HS512, this.jwtSecret)

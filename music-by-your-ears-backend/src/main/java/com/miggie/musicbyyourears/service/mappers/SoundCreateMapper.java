@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * Mapper used for bi directional mapping between CreateSoundRequest and SoundEntity
+ * Mapper used for bidirectional mapping between CreateSoundRequest and SoundEntity
  *
  * @author mdjukanovic
  */

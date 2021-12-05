@@ -1,4 +1,4 @@
-import {AuthUser, IUser} from './user.model';
+import {IUser} from './user.model';
 import {ICreateIcon, IIcon} from './icons.model';
 
 export interface IBaseSound {

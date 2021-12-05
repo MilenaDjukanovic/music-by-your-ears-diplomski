@@ -5,6 +5,7 @@ import {Icon} from '../model/icons.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {FileConverterService} from './file-converter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class IconService {
   private readonly BASE_URL  = 'spring/api/icons';
   constructor(private matIconRegistry: MatIconRegistry,
               private domSanitizer: DomSanitizer, private httpClient: HttpClient,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService, private fileConverterService: FileConverterService) { }
 
   public registerIcons(): void {
     this.spinner.show();
@@ -26,7 +27,7 @@ export class IconService {
 
   private loadIcons(icons: Array<Icon>): void {
     for (const icon of icons) {
-      const objectURL = 'data:image/svg;base64,' + icon.image;
+      const objectURL = this.fileConverterService.convertImages(icon);
       this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(objectURL));
     }
   }

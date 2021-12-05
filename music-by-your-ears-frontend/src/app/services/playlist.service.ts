@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {IPageable} from '../model/requests';
+import {Playlist} from '../model/playlist.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,7 @@ export class PlaylistService {
     return this.httpClient.post(this.BASE_URL, playlistData);
   }
 
-  public getPlaylists(): Observable<any> {
-    const getUrl = this.BASE_URL + '/all';
-    return this.httpClient.get(getUrl);
-  }
-
-  public getPlaylists2(pageable: IPageable): Observable<any> {
+  public getPlaylists(pageable: IPageable): Observable<any> {
     const getUrl = this.BASE_URL + '/all' + '?page=' + pageable.page + '&size=' + pageable.size;
     return this.httpClient.get(getUrl);
   }
@@ -40,5 +36,16 @@ export class PlaylistService {
   public deletePlaylist(playlistId: number): Observable<any> {
     const deleteUrl = this.BASE_URL + '/delete/' + playlistId;
     return this.httpClient.delete(deleteUrl);
+  }
+
+  public mergePlaylists(playlistOne: Playlist[], playlistTwo: Playlist[]): Playlist[] {
+    if (playlistOne.length === 0) {
+      playlistOne = playlistTwo;
+    } else {
+      playlistTwo.forEach((playlist: Playlist) => {
+        playlistOne.push(playlist);
+      });
+    }
+    return playlistOne;
   }
 }

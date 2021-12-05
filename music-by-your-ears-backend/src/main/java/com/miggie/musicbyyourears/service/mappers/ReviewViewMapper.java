@@ -6,7 +6,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
 /**
- * Mapper used for bi directional mapping between ReviewsDto and ReviewsEntity
+ * Mapper used for bidirectional mapping between ReviewsDto and ReviewsEntity
  *
  * @author mdjukanovic
  */

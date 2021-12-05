@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * Mapper used for bi directional mapping between CreatePlaylistRequest and PlaylistEntity
+ * Mapper used for bidirectional mapping between CreatePlaylistRequest and PlaylistEntity
  *
  * @author mdjukanovic
  */

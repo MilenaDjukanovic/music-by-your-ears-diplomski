@@ -1,6 +1,5 @@
 package com.miggie.musicbyyourears.repo;
 
-import com.miggie.musicbyyourears.repo.entity.IconsDto;
 import com.miggie.musicbyyourears.repo.entity.IconsEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

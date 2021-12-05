@@ -8,11 +8,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public abstract class BaseReviewsRequest {
 
-    /** Id of the playlist that was reviewed **/
+    /** ID of the playlist that was reviewed **/
     @NotNull
     private Long playlistId;
 
-    /** Id of the user that made a review **/
+    /** ID of the user that made a review **/
     @NotNull
     private Long userId;
 

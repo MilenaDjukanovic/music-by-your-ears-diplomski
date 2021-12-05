@@ -58,11 +58,6 @@ public class DefaultReviewsService implements ReviewService {
     }
 
     @Override
-    public PlaylistDto findByUser(Long userId) {
-        return null;
-    }
-
-    @Override
     public void delete(Long reviewId) {
         Objects.requireNonNull(reviewId);
 

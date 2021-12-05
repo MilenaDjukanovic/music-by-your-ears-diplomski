@@ -11,5 +11,6 @@
         <app-sound-button [sound]=sound></app-sound-button>
       </ng-container>
     </mat-card-content>
+    <button mat-flat-button color="primary" (click)="this.downloadMix()" [disabled]="this.showDownloadButton()">Download</button>
   </mat-card>
 </div>

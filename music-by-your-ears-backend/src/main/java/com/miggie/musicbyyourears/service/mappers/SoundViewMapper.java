@@ -6,7 +6,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
 /**
- * Mapper used for bi directional mapping between SoundDto and SoundEntity
+ * Mapper used for bidirectional mapping between SoundDto and SoundEntity
  *
  * @author mdjukanovic
  */

@@ -50,15 +50,15 @@ export class CommentsDialogComponent implements OnInit {
     const createReview: CreateReview = new CreateReview(this.commentForm.controls.comment.value,
       this.data.playlist.id, this.authService.getCurrentUserValue().id);
 
-    this.reviewService.createReview(createReview).subscribe((data) => {
+    this.reviewService.createReview(createReview).subscribe(() => {
       this.getReviews();
       this.clearForm();
-    }, error => {
+    }, () => {
     });
   }
 
   public deleteReview(reviewId: number): void {
-    this.reviewService.deleteReview(reviewId).subscribe(data => {
+    this.reviewService.deleteReview(reviewId).subscribe(() => {
       this.getReviews();
     });
   }

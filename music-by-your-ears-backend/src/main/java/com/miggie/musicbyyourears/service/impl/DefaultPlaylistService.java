@@ -105,7 +105,7 @@ public class DefaultPlaylistService implements PlaylistService {
                 .orElseThrow(() -> new EntityNotFoundException("Playlist with that id can not be found"));
 
         if(playlistEntity.getUser().getId().equals(this.authorizationService.getAuthenticatedUser().getId())) {
-
+            // #TODO temp fix for delete to retrieve all comments and manually delete them
             this.playlistRepository.deleteById(playlistId);
         }
     }

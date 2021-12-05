@@ -6,7 +6,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
 /**
- * Mapper used for bi directional mapping between PlaylistDto and PlaylistEntity
+ * Mapper used for bidirectional mapping between PlaylistDto and PlaylistEntity
  *
  * @author mdjukanovic
  */

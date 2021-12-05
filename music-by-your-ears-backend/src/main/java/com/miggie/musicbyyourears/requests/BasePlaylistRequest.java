@@ -1,12 +1,10 @@
 package com.miggie.musicbyyourears.requests;
 
 import com.miggie.musicbyyourears.repo.entity.IconsDto;
-import com.miggie.musicbyyourears.repo.entity.IconsEntity;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 public abstract class BasePlaylistRequest {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {comments} from '../../configuration/comments';
 import {flipCards} from '../../configuration/flip-cards';
 import {Router} from '@angular/router';
 
@@ -9,8 +8,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  public comments = comments;
 
   public flipCardConfiguration = flipCards;
 

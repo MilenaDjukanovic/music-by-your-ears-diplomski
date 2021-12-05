@@ -45,7 +45,7 @@ export class CreateSoundFormComponent implements OnInit {
     soundData.append('soundPublic', this.soundPublic);
     soundData.append('extension', 'svg');
     soundData.append('nameToShow', this.createSoundForm.controls.name.value);
-    this.soundService.createSound(soundData).subscribe((data) => {
+    this.soundService.createSound(soundData).subscribe(() => {
       this.clearForm();
       this.openSnackBar('You have successfully created your sound');
     }, error => {

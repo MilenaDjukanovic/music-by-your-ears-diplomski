@@ -1,10 +1,9 @@
-import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import {IPlaylist, Playlist} from '../../model/playlist.model';
+import {Component, OnInit} from '@angular/core';
+import {IPlaylist} from '../../model/playlist.model';
 import {PlaylistService} from '../../services/playlist.service';
-import {base64StringToBlob} from 'blob-util';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Pageable} from '../../model/requests';
-import {WindowManagementService} from '../../services/window-management.service';
+import {DownloadService} from '../../services/download.service';
 
 @Component({
   selector: 'app-playlists',
@@ -18,7 +17,7 @@ export class PlaylistsComponent implements OnInit {
   public showSeeMore = false;
 
   constructor(private playlistService: PlaylistService, private spinner: NgxSpinnerService,
-              private windowManagementService: WindowManagementService) {
+              private downloadService: DownloadService) {
   }
 
   ngOnInit(): void {
@@ -26,14 +25,7 @@ export class PlaylistsComponent implements OnInit {
   }
 
   public onPlaylistDownload($event: any): void {
-    const playlist = $event;
-
-    const blob = base64StringToBlob(playlist.audio, playlist.audioFile);
-    const anchor = document.createElement('a');
-    anchor.download = playlist.name;
-    anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
-    anchor.click();
-    anchor.remove();
+    this.downloadService.downloadData($event);
   }
 
   public onDeletePlaylist(): void {
@@ -44,15 +36,9 @@ export class PlaylistsComponent implements OnInit {
     this.spinner.show();
 
     const page = new Pageable(this.page, 4);
-    this.playlistService.getPlaylists2(page).subscribe(
+    this.playlistService.getPlaylists(page).subscribe(
       (data) => {
-        if (this.playlistConfiguration.length === 0) {
-          this.playlistConfiguration = data.content;
-        } else {
-          data.content.forEach((playlist: Playlist) => {
-            this.playlistConfiguration.push(playlist);
-          });
-        }
+        this.playlistConfiguration = this.playlistService.mergePlaylists(this.playlistConfiguration, data.content);
         this.showSeeMore = data.pageable.pageNumber < data.totalPages - 1;
         this.page++;
         this.spinner.hide();

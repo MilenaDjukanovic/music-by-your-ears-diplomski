@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {PlaylistService} from '../../../../services/playlist.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -11,6 +11,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class CreatePlaylistFormComponent implements OnInit {
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective | undefined;
+  @ViewChild('soundInput') soundInput: ElementRef | undefined;
 
   public createPlaylistForm!: FormGroup;
 
@@ -46,7 +47,7 @@ export class CreatePlaylistFormComponent implements OnInit {
     playlistData.append('artist', formValues.artist);
     playlistData.append('nameToShow', formValues.name);
 
-    this.playlistService.createPlaylist(playlistData).subscribe((data) => {
+    this.playlistService.createPlaylist(playlistData).subscribe(() => {
       this.clearForm();
       this.openSnackBar('You have successfully created new playlist!');
     }, error => {
@@ -73,6 +74,7 @@ export class CreatePlaylistFormComponent implements OnInit {
   private clearForm(): void {
     setTimeout(() => {
       this.formGroupDirective?.resetForm();
+     // this.soundInput?.nativeElement.resetFileInput();
     }, 0);
   }
 

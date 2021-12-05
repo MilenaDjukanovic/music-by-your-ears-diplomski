@@ -6,7 +6,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
 /**
- * Mapper used for bi directional mapping between CreateIconRequest and IconEntity
+ * Mapper used for bidirectional mapping between CreateIconRequest and IconEntity
  *
  * @author mdjukanovic
  */

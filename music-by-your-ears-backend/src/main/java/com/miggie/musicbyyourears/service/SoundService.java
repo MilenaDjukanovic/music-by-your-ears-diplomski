@@ -6,6 +6,8 @@ import com.miggie.musicbyyourears.requests.CreateSoundRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Service for sound related operations
  *
@@ -47,4 +49,7 @@ public interface SoundService {
      * @return page os soundDto
      */
     Page<SoundDto> findByUser();
+
+
+    List<SoundDto> getSoundsForId(List<Long> soundId);
 }

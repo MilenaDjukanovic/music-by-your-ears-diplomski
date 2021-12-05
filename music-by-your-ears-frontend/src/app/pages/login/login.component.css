@@ -28,20 +28,6 @@ mat-card{
   width: 100%;
 }
 
-.login-button{
-  margin: 10px 10px 0 10px;
-}
-
-.register-link{
-  margin: 10px 10px 0 10px;
-  text-decoration: underline;
-}
-
-.register-link:hover {
-  transition: 2s;
-  color: blue;
-}
-
 @media screen and (max-width: 600px) {
   .card{
     min-width: 30%;

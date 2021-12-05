@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   public onSubmit(event: any): void {
     const user: AuthUser = event.values;
     this.authService.login(user).pipe(first()).subscribe(
-      data => {
+      () => {
         const url = this.returnUrl ? this.returnUrl : '/';
         this.router.navigate([url]);
       },

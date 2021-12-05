@@ -11,16 +11,19 @@ import com.miggie.musicbyyourears.service.AuthorizationService;
 import com.miggie.musicbyyourears.service.UserService;
 import com.miggie.musicbyyourears.service.mappers.UserViewMapper;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -72,7 +75,6 @@ public class AuthController {
     /**
      * Creates user
      * @return DTO of created user
-     * @throws IOException
      */
     @PostMapping("update/user")
     public UserDto update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
@@ -89,14 +91,6 @@ public class AuthController {
             createIconRequest.setExtension(".jpg");
             return this.userService.updateUserImage(createIconRequest);
     }
-//
-//    @GetMapping("/{userId}")
-//    public UserDto getUserById(@PathVariable Long userId) throws AuthenticationException {
-//        if(authorizationService.getAuthenticatedUser().getId().equals(userId)) {
-//            return this.userService.findById(userId);
-//        }
-//        throw new AuthenticationException("Don't have access to this account");
-//    }
 
     @GetMapping("/user")
     public UserDto getLoggedInUser(){

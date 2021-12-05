@@ -24,10 +24,11 @@ public class ReviewsEntity {
     @ManyToOne
     @Getter @Setter
     @JoinColumn(name = "playlist_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private PlaylistEntity playlist;
 
 
-    /** User which made the commment **/
+    /** User which made the comment **/
     @ManyToOne
     @Getter @Setter
     @JoinColumn(name = "user_id", nullable = false)

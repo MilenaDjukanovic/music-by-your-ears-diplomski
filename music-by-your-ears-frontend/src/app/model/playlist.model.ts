@@ -1,5 +1,5 @@
 import {IIcon} from './icons.model';
-import {IAuthUser, IUser} from './user.model';
+import {IUser} from './user.model';
 
 export interface IBasePlaylist {
   artist: string;

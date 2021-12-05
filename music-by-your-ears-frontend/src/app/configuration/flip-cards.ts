@@ -18,7 +18,8 @@ export const flipCards = [
   {
     image: 'assets/flipCardImages/workout.jpg',
     description: 'Listening to music enhances physical performance!'
-  },{
+  },
+  {
     image: 'assets/flipCardImages/violin.jpg',
     description: 'The most expensive musical instrument sold for $15.9 million!'
   }

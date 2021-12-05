@@ -1,7 +1,6 @@
 package com.miggie.musicbyyourears.service;
 
 import com.miggie.musicbyyourears.repo.entity.IconsDto;
-import com.miggie.musicbyyourears.repo.entity.IconsEntity;
 import com.miggie.musicbyyourears.requests.CreateIconRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +34,7 @@ public interface IconService {
     IconsDto findById(Long id);
 
     /**
-     * Finds all icons for a certain extesion
+     * Finds all icons for a certain extension
      * @param extension extension of the icon
      * @return pageable of icons
      */

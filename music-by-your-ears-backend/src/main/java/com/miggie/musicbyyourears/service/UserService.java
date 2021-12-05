@@ -15,7 +15,7 @@ public interface UserService {
 
     /**
      * Creates user from createUserRequest
-     * @param createUserRequest request for creation containing user detai=
+     * @param createUserRequest request for creation containing user detail
      * @return User object for viewing if successful
      */
     UserDto createUser(CreateUserRequest createUserRequest);
@@ -37,8 +37,7 @@ public interface UserService {
     UserDto findById(Long id);
 
     /**
-     * Gets logged in user
-     * @return
+     * Gets logged-in user
      */
     UserDto getLoggedInUser();
 

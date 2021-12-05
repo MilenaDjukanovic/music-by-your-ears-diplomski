@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';;
+import {MatDialogRef} from '@angular/material/dialog';
 import {AuthService} from '../../../../services/auth.service';
 import {CreateUser} from '../../../../model/user.model';
 
@@ -9,8 +9,6 @@ import {CreateUser} from '../../../../model/user.model';
   styleUrls: ['./edit-profile-dialog.component.scss']
 })
 export class EditProfileDialogComponent implements OnInit {
-  // TODO
-  public formConfiguration!: any;
 
   public error!: string;
   public coverImage!: any;
